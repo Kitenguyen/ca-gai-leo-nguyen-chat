@@ -1,0 +1,49 @@
+/* =============================================================================
+ * animation.css — Motion system (Motion Spec V1.0)
+ * Chỉ animate opacity & transform (Motion §27). Reveal một lần (Motion §8).
+ * =========================================================================== */
+
+/* ---- SCROLL REVEAL (Motion §8: Fade + Translate nhẹ) --------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--reveal-duration) var(--ease),
+              transform var(--reveal-duration) var(--ease);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger trong một nhóm (Motion §9, §17: lần lượt, khoảng cách đều) */
+.reveal[data-delay="1"] { transition-delay: 80ms; }
+.reveal[data-delay="2"] { transition-delay: 160ms; }
+.reveal[data-delay="3"] { transition-delay: 240ms; }
+.reveal[data-delay="4"] { transition-delay: 320ms; }
+.reveal[data-delay="5"] { transition-delay: 400ms; }
+
+/* ---- HERO LOAD SEQUENCE (Motion §5) -------------------------------------- */
+/* Logo -> Title -> Desc -> CTA; ảnh đồng thời với Title. Không xoay. */
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+.hero-anim {
+  opacity: 0;
+  animation: heroIn var(--hero-duration) var(--ease) forwards;
+}
+.hero-anim[data-seq="1"] { animation-delay: 120ms; }  /* title */
+.hero-anim[data-seq="2"] { animation-delay: 260ms; }  /* desc  */
+.hero-anim[data-seq="3"] { animation-delay: 400ms; }  /* price */
+.hero-anim[data-seq="4"] { animation-delay: 540ms; }  /* CTA (xuất hiện cuối) */
+.hero-anim[data-seq="img"] { animation-delay: 120ms; } /* ảnh ~ cùng title */
+
+/* ---- ANNOUNCEMENT (Motion §7): hiện ngay, không nhấp nháy/trượt --------- */
+/* (không cần keyframe — render tĩnh) */
+
+/* ---- REDUCED MOTION (Motion §28) ---------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .hero-anim { opacity: 1; animation: none; }
+}

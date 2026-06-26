@@ -1,0 +1,151 @@
+/* =============================================================================
+ * components.css — Reusable UI primitives (DS §9, §12, §14)
+ * =========================================================================== */
+
+/* ---- BUTTONS (DS §9 / §17 CTA) ------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: var(--btn-height);
+  padding-inline: var(--btn-padding-x);
+  border-radius: var(--radius-button);
+  font-size: var(--fs-button);
+  font-weight: var(--fw-button);
+  line-height: 1;
+  text-align: center;
+  transition: background var(--transition) var(--ease),
+              color var(--transition) var(--ease),
+              box-shadow var(--transition) var(--ease),
+              transform var(--transition) var(--ease);
+  will-change: transform;
+}
+
+/* Primary — nền primary, chữ trắng, hover đậm + nâng nhẹ */
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+.btn--primary:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Secondary — viền primary, nền trắng, hover đổi nền primary */
+.btn--secondary {
+  background: var(--color-white);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+.btn--secondary:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+/* Ghost — không nền, hover hiện nền nhạt */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-primary);
+}
+.btn--ghost:hover { background: rgba(46,125,50,0.08); }
+
+/* Click feedback (Motion §10): thu nhỏ rất nhẹ rồi trở lại */
+.btn:active { transform: scale(0.98); }
+
+/* Size variants */
+.btn--lg { min-height: 64px; font-size: var(--fs-h6); }
+.btn--block { width: 100%; }     /* DS §23 mobile full width */
+
+/* ---- BADGE (DS §14) ------------------------------------------------------ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-badge);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  line-height: 1;
+}
+.badge--primary   { background: rgba(46,125,50,0.10);  color: var(--color-primary); }
+.badge--secondary { background: rgba(200,161,0,0.14);  color: #8a7000; }
+.badge--accent    { background: rgba(245,158,11,0.14); color: #9a6200; }
+
+/* ---- CARD (DS §12) ------------------------------------------------------- */
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-4);          /* 32px */
+  transition: transform var(--transition) var(--ease),
+              box-shadow var(--transition) var(--ease);
+}
+.card--hover:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+.card--bordered {
+  box-shadow: none;
+  border: 1px solid var(--color-border);
+}
+
+/* ---- ICON CONTAINER ------------------------------------------------------ */
+.icon {
+  display: inline-flex;
+  width: 24px; height: 24px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+.icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; }
+.icon--32 { width: 32px; height: 32px; }
+.icon--40 { width: 40px; height: 40px; }
+.icon--48 { width: 48px; height: 48px; }
+
+/* Hover icon (Motion §12): scale nhẹ, không quay */
+.icon--interactive { transition: transform var(--transition) var(--ease); }
+.icon--interactive:hover { transform: scale(1.08); }
+
+/* ---- PLACEHOLDER MEDIA (TODO assets) ------------------------------------- */
+/* Dùng cho mọi ảnh/video chưa có asset thật — TODO-IMG thay bằng <picture>. */
+.media-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    repeating-linear-gradient(135deg,
+      var(--color-bg-alt) 0, var(--color-bg-alt) 14px,
+      #f0f0ec 14px, #f0f0ec 28px);
+  border-radius: var(--radius-image);
+  color: var(--color-text-secondary);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-align: center;
+  min-height: 220px;
+  border: 1px dashed var(--color-border);
+}
+.media-placeholder::after {
+  content: 'TODO';
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: var(--radius-badge);
+}
+.media-placeholder span { padding: var(--space-3); }
+
+/* Small placeholder (timeline steps, thumbnails) */
+.media-placeholder--sm {
+  min-height: 110px;
+  font-size: 11px;
+}
+.media-placeholder--sm::after { top: 6px; right: 6px; padding: 1px 6px; }

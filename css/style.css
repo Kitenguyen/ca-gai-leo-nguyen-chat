@@ -1,0 +1,1291 @@
+/* =============================================================================
+ * style.css — Section-specific styles
+ * SPRINT 1: Announcement Bar · Header · Hero · Trust Bar
+ * (Sections 03–19 sẽ bổ sung ở các sprint sau.)
+ * =========================================================================== */
+
+/* =====================================================================
+ * ANNOUNCEMENT BAR (UI §5) — trên Header, 44–48px, nền xanh, chữ trắng
+ * =================================================================== */
+.announcement {
+  position: relative;
+  z-index: var(--z-announcement);
+  height: var(--announcement-height);
+  display: flex;
+  align-items: center;
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.announcement__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  text-align: center;
+}
+.announcement__item { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.announcement__sep { opacity: 0.45; }
+/* Mobile: rút gọn — ẩn dấu phân tách dư, cho cuộn ngang nếu chật */
+@media (max-width: 767px) {
+  .announcement__inner { gap: var(--space-2); }
+}
+
+/* =====================================================================
+ * HEADER (UI §4 / Motion §6) — sticky, trong suốt trên Hero -> trắng khi cuộn
+ * =================================================================== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  background: transparent;
+  transition: background var(--transition) var(--ease),
+              box-shadow var(--transition) var(--ease);
+}
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+/* Trạng thái sau khi cuộn (toggle bằng JS) */
+.header.is-scrolled {
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.header__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--fs-h5);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--color-white);          /* trên hero (transparent) */
+  transition: color var(--transition) var(--ease);
+}
+.header.is-scrolled .header__logo { color: var(--color-primary); }
+.header__logo-mark { width: 36px; height: 36px; }
+
+.header__actions { display: flex; align-items: center; gap: var(--space-3); }
+
+.header__hotline {
+  display: none;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: 700;
+  color: var(--color-white);
+  transition: color var(--transition) var(--ease);
+}
+.header.is-scrolled .header__hotline { color: var(--color-text); }
+@media (min-width: 768px) { .header__hotline { display: inline-flex; } }
+
+/* CTA trong header: trên hero dùng viền trắng; sau cuộn dùng primary */
+.header__cta { min-height: 48px; padding-inline: var(--space-3); font-size: var(--fs-body-sm); }
+.header:not(.is-scrolled) .header__cta {
+  background: rgba(255,255,255,0.14);
+  color: var(--color-white);
+  border: 2px solid rgba(255,255,255,0.55);
+}
+.header:not(.is-scrolled) .header__cta:hover {
+  background: rgba(255,255,255,0.24);
+}
+
+/* =====================================================================
+ * HERO (UI §6 / Motion §5) — 100vh đầu, 2 cột desktop, ảnh-trước trên mobile
+ * =================================================================== */
+.hero {
+  position: relative;
+  /* trừ chiều cao chrome để "100% màn hình đầu tiên" không bị tràn */
+  min-height: calc(100svh - var(--header-height) - var(--announcement-height));
+  display: flex;
+  align-items: center;
+  /* Nền xanh đậm để header trong suốt + chữ trắng có tương phản WCAG AA.
+     TODO-IMG: thay bằng ảnh nền vùng trồng thật của SADU. */
+  background:
+    linear-gradient(180deg, rgba(31,41,55,0.10), rgba(31,41,55,0.45)),
+    radial-gradient(120% 90% at 80% 10%, #2f6f37 0%, #1f4d27 55%, #163a1d 100%);
+  color: var(--color-white);
+  overflow: hidden;
+  padding-block: var(--space-7);
+  margin-top: calc(-1 * var(--header-height)); /* header đè lên hero */
+  padding-top: calc(var(--header-height) + var(--space-7));
+}
+
+.hero__grid {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .hero__grid { grid-template-columns: 1.05fr 0.95fr; gap: var(--space-8); }
+}
+
+/* Mobile: ảnh trước, nội dung sau (UI §6) */
+.hero__media { order: -1; }
+@media (min-width: 1024px) { .hero__media { order: 0; } }
+
+.hero__badge { margin-bottom: var(--space-3); }
+.hero__badge.badge--primary { background: rgba(255,255,255,0.16); color: #eafff0; }
+
+.hero__title {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-h1);
+  line-height: var(--lh-h1);
+  letter-spacing: var(--ls-h1);
+  margin-bottom: var(--space-3);
+  max-width: 18ch;
+}
+.hero__desc {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+  color: rgba(255,255,255,0.86);
+  max-width: 52ch;
+  margin-bottom: var(--space-5);
+}
+
+/* Khối giá (UI §6: Hero gồm Giá) — dữ liệu giá lấy từ PRD, không bịa copy */
+.hero__price {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.hero__offer-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: min(100%, 480px);
+  padding: var(--space-4);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.12)),
+    radial-gradient(circle at top right, rgba(200,161,0,0.36), transparent 40%);
+  border: 1px solid rgba(255,255,255,0.24);
+  box-shadow: 0 20px 44px rgba(8, 23, 12, 0.28);
+}
+.hero__offer-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.hero__offer-kicker {
+  font-size: var(--fs-caption);
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,0.92);
+}
+.hero__offer-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-badge);
+  background: rgba(255, 244, 204, 0.22);
+  color: #fff4c8;
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+.hero__price-combo { display: flex; align-items: baseline; gap: var(--space-2); }
+.hero__price-combo--single {
+  align-self: flex-end;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.hero__price-label { font-size: var(--fs-body-sm); color: rgba(255,255,255,0.78); }
+.hero__price-value { font-size: var(--fs-h3); font-weight: 800; color: #fff; }
+.hero__price-old {
+  font-size: var(--fs-body); color: rgba(255,255,255,0.6);
+  text-decoration: line-through;
+}
+.hero__offer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.hero__offer-meta span {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: var(--radius-badge);
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.96);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+/* CTA phụ trong hero = ghost trắng */
+.hero__cta .btn--secondary {
+  background: transparent; color: #fff; border-color: rgba(255,255,255,0.6);
+}
+.hero__cta .btn--secondary:hover { background: rgba(255,255,255,0.14); color:#fff; }
+
+/* Ảnh sản phẩm hero */
+.hero__media .media-placeholder {
+  min-height: 340px;
+  aspect-ratio: 4 / 5;
+  background:
+    repeating-linear-gradient(135deg,
+      rgba(255,255,255,0.12) 0, rgba(255,255,255,0.12) 14px,
+      rgba(255,255,255,0.06) 14px, rgba(255,255,255,0.06) 28px);
+  border-color: rgba(255,255,255,0.3);
+  color: #eafff0;
+}
+
+/* =====================================================================
+ * TRUST BAR (UI §7) — 5 biểu tượng bằng nhau, icon trên / tiêu đề dưới
+ * =================================================================== */
+.trustbar { padding-block: var(--space-6); border-bottom: 1px solid var(--color-divider); }
+.trustbar__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* mobile: 2/hàng cho gọn */
+  gap: var(--space-4) var(--space-3);
+}
+@media (min-width: 768px)  { .trustbar__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .trustbar__grid { grid-template-columns: repeat(5, 1fr); } }
+
+.trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+}
+.trust-item__icon {
+  width: 40px; height: 40px;
+  color: var(--color-primary);
+}
+.trust-item__title {
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+/* Mục thứ 5 trên mobile (2 cột) sẽ tự xuống hàng — căn giữa cả hàng cuối */
+@media (max-width: 767px) {
+  .trustbar__grid > .trust-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =====================================================================
+ * PLACEHOLDER SECTIONS (Sprint 1) — cấu trúc đã khóa, nội dung TODO
+ * Hiển thị nhãn mờ để page chạy được & navigable. Gỡ ở các sprint sau.
+ * =================================================================== */
+.section--placeholder {
+  border-top: 1px dashed var(--color-border);
+}
+.section--placeholder .caption {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-bg-alt);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-badge);
+}
+
+/* #############################################################################
+ * SPRINT 2 — Sections 03–07
+ * 03 Pain Point · 04 Big Idea · 05 Farm Story · 06 USP · 07 Production Process
+ * ########################################################################### */
+
+/* shared: section head chỉ có eyebrow (không có tiêu đề trong PRD) */
+.section-head--label { margin-bottom: var(--space-6); }
+.section-head--label .eyebrow { margin-bottom: 0; }
+
+/* ---- shared: placeholder copy marker (TODO-COPY) ------------------------- */
+.todo-copy { color: var(--color-text-secondary); }
+.todo-copy::before {
+  content: 'TODO-COPY';
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #9a6200;
+  background: rgba(245,158,11,0.14);
+  padding: 1px 7px;
+  border-radius: var(--radius-badge);
+  margin-right: 8px;
+  transform: translateY(-1px);
+}
+
+/* =====================================================================
+ * 03 · PAIN POINT (UI §8 + Quyết định mới) — 5 card
+ * Desktop: 3 + 2 (hàng 2 căn giữa) · Tablet: 2/hàng · Mobile: 1/hàng
+ * =================================================================== */
+.painpoint__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gutter);
+}
+.painpoint__grid > .painpoint__card { flex: 0 1 100%; }           /* mobile 1/hàng */
+@media (min-width: 768px) {
+  .painpoint__grid > .painpoint__card { flex: 0 1 calc((100% - var(--gutter)) / 2); } /* tablet 2/hàng */
+}
+@media (min-width: 1024px) {
+  .painpoint__grid > .painpoint__card { flex: 0 1 calc((100% - 2 * var(--gutter)) / 3); } /* desktop 3 + 2 */
+}
+
+.painpoint__card { text-align: left; }
+.painpoint__card .pp-icon {
+  width: 56px; height: 56px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-button);
+  background: rgba(46,125,50,0.08);
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+.painpoint__card .pp-icon svg { width: 28px; height: 28px; }
+.painpoint__title { margin-bottom: var(--space-2); }
+
+/* =====================================================================
+ * 04 · BIG IDEA — section độc lập (Quyết định #2)
+ * Tuyên ngôn lớn + 4 trụ niềm tin (vùng trồng/quy trình/minh bạch/chất lượng)
+ * =================================================================== */
+.bigidea { text-align: center; }
+.bigidea__statement {
+  max-width: 20ch;
+  margin: var(--space-2) auto var(--space-4);
+}
+.bigidea__sub { max-width: 60ch; margin: 0 auto var(--space-7); }
+.bigidea__pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4) var(--space-3);
+  max-width: 880px;
+  margin-inline: auto;
+}
+@media (min-width: 1024px) { .bigidea__pillars { grid-template-columns: repeat(4, 1fr); } }
+.pillar { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+.pillar__icon {
+  width: 64px; height: 64px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+.pillar__icon svg { width: 30px; height: 30px; }
+.pillar__title { font-size: var(--fs-h6); font-weight: 700; }
+
+/* =====================================================================
+ * 05 · FARM STORY (= Story, UI §9) — ảnh lớn + văn bản cạnh, đoạn ≤ 4 dòng
+ * =================================================================== */
+.farmstory__grid {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .farmstory__grid { grid-template-columns: 1.1fr 0.9fr; gap: var(--space-8); }
+  .farmstory--reverse .farmstory__media { order: 2; }
+}
+.farmstory__media .media-placeholder {
+  min-height: 420px;
+  aspect-ratio: 4 / 3;
+}
+.farmstory__title { margin-bottom: var(--space-3); }
+.farmstory__text > p { margin-bottom: var(--space-3); max-width: 56ch; }
+.farmstory__cta { margin-top: var(--space-4); }
+
+/* =====================================================================
+ * 06 · USP (UI §11 + Quyết định B) — 7 Card; hover nâng nhẹ + shadow
+ * Desktop: 4 + 3 (hàng 2 căn giữa) · Tablet: 2/hàng · Mobile: 1/hàng
+ * =================================================================== */
+.usp__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gutter);
+}
+.usp__grid > .usp__card { flex: 0 1 100%; }                       /* mobile 1/hàng */
+@media (min-width: 768px) {
+  .usp__grid > .usp__card { flex: 0 1 calc((100% - var(--gutter)) / 2); }       /* tablet 2/hàng */
+}
+@media (min-width: 1024px) {
+  .usp__grid > .usp__card { flex: 0 1 calc((100% - 3 * var(--gutter)) / 4); }   /* desktop 4 -> 4+3 */
+}
+.usp__card { text-align: left; }
+.usp__icon {
+  width: 56px; height: 56px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-button);
+  background: rgba(46,125,50,0.08);
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+.usp__icon svg { width: 28px; height: 28px; }
+.usp__title { margin-bottom: var(--space-2); }
+
+/* =====================================================================
+ * 07 · PRODUCTION PROCESS (= Timeline, UI §10)
+ * Ngang desktop, dọc mobile. Mỗi bước: icon + ảnh + tiêu đề + mô tả ngắn.
+ * Các bước nối bằng đường dẫn trực quan (Motion §15).
+ * =================================================================== */
+.timeline { position: relative; }
+
+/* MOBILE: dọc, đường nối bên trái */
+.timeline__track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  position: relative;
+}
+.timeline__track::before {           /* đường nối dọc */
+  content: '';
+  position: absolute;
+  left: 27px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: var(--color-border);
+}
+.timeline__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  column-gap: var(--space-3);
+  align-items: start;
+}
+.timeline__node {
+  position: relative;
+  z-index: 1;
+  width: 56px; height: 56px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--color-white);
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+.timeline__node svg { width: 26px; height: 26px; }
+.timeline__num {
+  position: absolute;
+  top: -6px; right: -6px;
+  width: 22px; height: 22px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 12px; font-weight: 700;
+}
+.timeline__body { padding-top: 2px; }
+.timeline__img .media-placeholder { min-height: 140px; margin-bottom: var(--space-2); aspect-ratio: 4/3; }
+.timeline__step-title { font-size: var(--fs-h6); font-weight: 700; margin-bottom: 4px; }
+
+/* DESKTOP (>=1024): ngang, đường nối ngang qua các node */
+@media (min-width: 1024px) {
+  .timeline__track {
+    flex-direction: row;
+    gap: var(--space-3);
+    align-items: stretch;
+  }
+  .timeline__track::before {
+    left: 8px; right: 8px; top: 28px; bottom: auto;
+    width: auto; height: 2px;
+  }
+  .timeline__step {
+    flex: 1;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    row-gap: var(--space-2);
+  }
+  .timeline__node { margin-inline: auto; }
+  .timeline__body { padding-top: 0; }
+  .timeline__img .media-placeholder { min-height: 110px; width: 100%; }
+}
+
+/* #############################################################################
+ * SPRINT 3 — Sections 08–14
+ * 08 Gallery(+Lightbox) · 09 Video · 10 Certification · 11 Comparison
+ * 12 Benefits · 13 Usage · 14 Reviews(+Number Counter)
+ * Visual Direction: card nổi, viền mảnh, shadow nhẹ, white-space, line icon.
+ * ########################################################################### */
+
+/* =====================================================================
+ * 08 · GALLERY (UI §12 / DS §18 / Motion §13 / Visual §18)
+ * Grid: mobile 1 · tablet 2 · laptop 3 · desktop 4. Hover zoom. Lightbox.
+ * Thứ tự kể chuyện (Visual §18) — giữ đúng thứ tự DOM, không random.
+ * =================================================================== */
+.gallery__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gutter);
+}
+@media (min-width: 768px)  { .gallery__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .gallery__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1440px) { .gallery__grid { grid-template-columns: repeat(4, 1fr); } }
+
+.gallery__item {
+  position: relative;
+  border-radius: var(--radius-gallery);
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 4 / 3;
+  background: var(--color-bg-alt);
+  box-shadow: var(--shadow-sm);
+}
+.gallery__media {
+  position: absolute; inset: 0;
+  transition: transform var(--transition-slow) var(--ease);
+}
+.gallery__item:hover .gallery__media { transform: scale(1.05); }   /* Motion §13 zoom nhẹ */
+.gallery__item .media-placeholder {
+  height: 100%; min-height: 0; border: none; border-radius: 0;
+}
+.asset-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+.asset-media--frame {
+  aspect-ratio: 4 / 3;
+}
+.asset-media--contain {
+  object-fit: contain;
+  background: #20262f;
+}
+.gallery__caption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  background: linear-gradient(180deg, transparent, rgba(31,41,55,0.72));
+  color: #fff;
+  font-size: var(--fs-body-sm);
+  font-weight: 600;
+}
+.gallery__order {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; margin-right: 8px;
+  border-radius: 50%; background: var(--color-primary); color: #fff;
+  font-size: 12px; font-weight: 700;
+}
+.gallery__item:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+
+/* Lightbox (DS §18) */
+.lightbox {
+  position: fixed; inset: 0; z-index: var(--z-popup);
+  display: none; align-items: center; justify-content: center;
+  padding: var(--space-4);
+  background: rgba(15,20,30,0.86);
+}
+.lightbox.is-open { display: flex; }
+.lightbox__dialog {
+  position: relative; width: min(960px, 92vw); max-height: 86vh;
+  display: flex; flex-direction: column; gap: var(--space-2);
+}
+.lightbox__stage {
+  border-radius: var(--radius-image); overflow: hidden;
+  aspect-ratio: 4 / 3; background: #20262f;
+}
+.lightbox__stage .media-placeholder { height: 100%; min-height: 0; border-radius: 0; border: none; }
+.lightbox__stage-frame { width: 100%; height: 100%; }
+.lightbox__caption { color: #fff; text-align: center; font-weight: 600; }
+.lightbox__btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: rgba(255,255,255,0.16); color: #fff;
+  transition: background var(--transition) var(--ease);
+}
+.lightbox__btn:hover { background: rgba(255,255,255,0.30); }
+.lightbox__prev { left: -8px; }
+.lightbox__next { right: -8px; }
+.lightbox__close {
+  position: absolute; top: -52px; right: 0;
+  width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: rgba(255,255,255,0.16); color: #fff;
+}
+.lightbox__close:hover { background: rgba(255,255,255,0.30); }
+@media (min-width: 1024px) { .lightbox__prev { left: -64px; } .lightbox__next { right: -64px; } }
+
+/* =====================================================================
+ * 09 · VIDEO (UI §13 / DS §19 / Motion §14 / Visual §19)
+ * Giữa, lớn, thumbnail trước khi phát, nút Play lớn. Documentary.
+ * =================================================================== */
+.video__frame {
+  position: relative;
+  width: min(960px, 100%);
+  margin-inline: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-image);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: #20262f;
+}
+.video__poster { position: absolute; inset: 0; }
+.video__poster .media-placeholder { height: 100%; min-height: 0; border: none; border-radius: 0; }
+.video__play {
+  position: absolute; inset: 0; margin: auto;
+  width: 88px; height: 88px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition) var(--ease), background var(--transition) var(--ease);
+}
+.video__play svg { width: 34px; height: 34px; margin-left: 4px; }
+.video__play:hover { transform: scale(1.06); background: #fff; }   /* Motion §14 scale nhẹ */
+.video__el { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: none; }
+.video__frame.is-playing .video__poster,
+.video__frame.is-playing .video__play { display: none; }
+.video__frame.is-playing .video__el { display: block; }
+
+/* =====================================================================
+ * 10 · CERTIFICATION (UI §14) — Card; chiều cao đồng đều
+ * =================================================================== */
+.cert__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gutter);
+  max-width: 880px; margin-inline: auto;
+}
+@media (min-width: 768px) { .cert__grid { grid-template-columns: repeat(2, 1fr); } }
+.cert__card { display: flex; flex-direction: column; height: 100%; text-align: center; align-items: center; }
+.cert__img { width: 100%; margin-bottom: var(--space-3); }
+.cert__img .media-placeholder { aspect-ratio: 3 / 2; min-height: 0; }
+.cert__img .asset-media { aspect-ratio: 3 / 2; }
+.cert__title { margin-bottom: var(--space-2); }
+
+/* =====================================================================
+ * 11 · COMPARISON (UI §15 / DS §22) — desktop bảng, mobile card
+ * =================================================================== */
+.comparison__table { display: none; }
+@media (min-width: 1024px) {
+  .comparison__table {
+    display: table; width: 100%; border-collapse: collapse;
+    border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-sm);
+  }
+  .comparison__cards { display: none; }
+}
+.comparison__table thead th {
+  background: var(--color-primary); color: #fff;
+  font-size: var(--fs-h6); font-weight: 700;
+  padding: var(--space-3) var(--space-4); text-align: center;
+}
+.comparison__table thead th:first-child { text-align: left; }
+.comparison__table tbody td {
+  background: #fff; border-bottom: 1px solid var(--color-divider);
+  padding: var(--space-3) var(--space-4); text-align: center; vertical-align: middle;
+}
+.comparison__criteria { text-align: left !important; display: flex; align-items: center; gap: var(--space-2); font-weight: 600; }
+.comparison__criteria .icon { color: var(--color-primary); }
+.cmp-yes { color: var(--color-success); }
+.cmp-no  { color: var(--color-text-secondary); opacity: 0.7; }
+.cmp-yes svg, .cmp-no svg { width: 26px; height: 26px; margin-inline: auto; }
+
+/* Mobile cards */
+.comparison__cards { display: grid; gap: var(--gutter); }
+.cmp-card__crit { display: flex; align-items: center; gap: var(--space-2); font-weight: 700; margin-bottom: var(--space-3); }
+.cmp-card__row { display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) 0; border-top: 1px solid var(--color-divider); }
+.cmp-card__row span:first-child { color: var(--color-text-secondary); }
+
+/* =====================================================================
+ * 12 · BENEFITS (UI §16) — card nhỏ, biểu tượng lớn, tiêu đề, 2 dòng
+ * =================================================================== */
+.benefits__grid {
+  display: grid; grid-template-columns: 1fr; gap: var(--gutter);
+}
+@media (min-width: 768px)  { .benefits__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .benefits__grid { grid-template-columns: repeat(4, 1fr); } }
+.benefit { text-align: center; }
+.benefit__icon {
+  width: 64px; height: 64px; margin: 0 auto var(--space-3);
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: rgba(46,125,50,0.08); color: var(--color-primary);
+}
+.benefit__icon svg { width: 34px; height: 34px; }
+.benefit__title { margin-bottom: var(--space-1); }
+
+/* =====================================================================
+ * 13 · USAGE (UI §17) — 4 bước: số + icon + hình + mô tả; nối với nhau
+ * =================================================================== */
+.usage__track {
+  display: grid; grid-template-columns: 1fr; gap: var(--space-6);
+  position: relative;
+}
+@media (min-width: 1024px) {
+  .usage__track { grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+  .usage__track::before {
+    content: ''; position: absolute; top: 26px; left: 12.5%; right: 12.5%;
+    height: 2px; background: var(--color-border);
+  }
+}
+.usage__step { position: relative; text-align: center; }
+.usage__num {
+  position: relative; z-index: 1;
+  width: 52px; height: 52px; margin: 0 auto var(--space-3);
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: var(--color-primary); color: #fff;
+  font-size: var(--fs-h5); font-weight: 800;
+  box-shadow: var(--shadow-sm);
+}
+.usage__icon { color: var(--color-primary); margin-bottom: var(--space-2); display: inline-flex; }
+.usage__icon svg { width: 28px; height: 28px; }
+.usage__img .media-placeholder { aspect-ratio: 4/3; min-height: 0; margin-bottom: var(--space-2); }
+.usage__img .asset-media { aspect-ratio: 4 / 3; margin-bottom: var(--space-2); }
+
+/* =====================================================================
+ * 14 · REVIEWS (UI §18 / DS §20 / Motion §17 / Visual §17)
+ * + NUMBER COUNTER (Motion §16) — chạy một lần khi xuất hiện
+ * =================================================================== */
+.stats__grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5) var(--space-3);
+  max-width: 880px; margin: 0 auto var(--space-8);
+  text-align: center;
+}
+@media (min-width: 768px) { .stats__grid { grid-template-columns: repeat(4, 1fr); } }
+.stat__num {
+  font-size: var(--fs-h2); font-weight: 800; color: var(--color-primary);
+  line-height: 1.1;
+}
+.stat__label { color: var(--color-text-secondary); font-size: var(--fs-body-sm); }
+
+.reviews__grid {
+  display: grid; grid-template-columns: 1fr; gap: var(--gutter);
+}
+@media (min-width: 768px)  { .reviews__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .reviews__grid { grid-template-columns: repeat(3, 1fr); } }
+.review__head { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
+.review__avatar {
+  width: 72px; height: 72px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+  background: var(--color-bg-alt);
+}
+.review__avatar .media-placeholder { height: 100%; min-height: 0; border-radius: 50%; border: none; font-size: 10px; }
+.review__avatar .asset-media { border-radius: 50%; }
+.review__name { font-size: var(--fs-h6); font-weight: 700; }
+.review__role { font-size: var(--fs-body-sm); color: var(--color-text-secondary); }
+.review__stars { display: inline-flex; gap: 2px; color: var(--color-secondary); margin-bottom: var(--space-2); }
+.review__stars svg { width: 18px; height: 18px; fill: currentColor; stroke: none; }
+.review__content { color: var(--color-text); }
+
+/* Video review hiển thị trước (Visual §17 / UI §18) */
+.reviews__video { margin-bottom: var(--space-7); }
+
+/* #############################################################################
+ * SPRINT 4 — Sections 15–19 + Chrome (Floating CTA · Exit Popup · Back-to-top)
+ * 15 Offer · 16 Guarantee · 17 FAQ · 18 Smart Order Form · 19 Footer
+ * Source of truth priority: PRD > CRO > UI > DS > Component > Tech > Motion > Visual
+ * ########################################################################### */
+
+/* =====================================================================
+ * CTA BETWEEN SECTIONS (CRO §20 — CTA every 2-3 sections)
+ * Slim full-width CTA bridge strip
+ * =================================================================== */
+.cta-bridge {
+  padding-block: var(--space-7);
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+}
+.cta-bridge p { color: var(--color-text-secondary); }
+
+/* =====================================================================
+ * 15 · OFFER (UI §19 / CRO §3 §4 §5) — 2 card: lẻ + combo
+ * Combo: scale 5%, border nổi, badge + ribbon (CRO §4)
+ * Price hierarchy: niêm yết → hiện tại → tiết kiệm → freeship → CTA (CRO §5)
+ * =================================================================== */
+.offer {
+  background: var(--color-bg-dark);
+  color: var(--color-white);
+}
+.offer .eyebrow { color: rgba(255,255,255,.65); }
+.offer .section-head--label { margin-bottom: var(--space-7); }
+
+.offer__grid {
+  display: grid; grid-template-columns: 1fr; gap: var(--space-5);
+  max-width: 820px; margin-inline: auto;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .offer__grid { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+}
+
+/* ---- card base ---- */
+.offer__card {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: var(--radius-card);
+  padding: var(--space-5);
+  display: flex; flex-direction: column; gap: var(--space-3);
+  position: relative; overflow: visible;
+  transition: transform var(--transition) var(--ease), box-shadow var(--transition) var(--ease);
+}
+.offer__card--single { align-self: start; }
+
+/* ---- combo: scale 5% + border nổi (CRO §4) ---- */
+.offer__card--combo {
+  background: rgba(255,255,255,.12);
+  border: 3px solid var(--color-primary);
+  transform: scale(1.07);
+  box-shadow: 0 0 0 5px rgba(46,125,50,.22), 0 18px 34px rgba(0,0,0,.28);
+}
+@media (max-width: 767px) {
+  .offer__card--combo { transform: none; margin-top: var(--space-5); }
+}
+
+/* ---- ribbon (CRO §4) ---- */
+.offer__ribbon {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--color-primary); color: #fff;
+  font-size: var(--fs-caption); font-weight: 700;
+  padding: 5px var(--space-3); border-radius: var(--radius-badge);
+  white-space: nowrap; letter-spacing: .02em;
+}
+/* ---- badge tiết kiệm (CRO §4) ---- */
+.offer__savings-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(46,125,50,.22); color: #7ddf8a;
+  font-size: var(--fs-caption); font-weight: 700;
+  padding: 4px 12px; border-radius: var(--radius-badge);
+  align-self: flex-start;
+}
+/* ---- price stack (CRO §5 order) ---- */
+.offer__price-old {
+  font-size: var(--fs-body-sm); color: rgba(255,255,255,.5);
+  text-decoration: line-through; line-height: 1;
+}
+.offer__price-main {
+  font-size: var(--fs-h2); font-weight: 800; line-height: 1.1;
+  color: var(--color-white);
+}
+.offer__price-unit { font-size: var(--fs-body-sm); color: rgba(255,255,255,.65); }
+.offer__free-ship {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--fs-body-sm); color: #7ddf8a; font-weight: 600;
+}
+.offer__free-ship svg { width: 18px; height: 18px; }
+.offer__card .btn { width: 100%; margin-top: auto; }
+/* CTA trên dark bg: trắng rõ */
+.offer__card--single .btn--secondary {
+  background: transparent; color: #fff; border-color: rgba(255,255,255,.45);
+}
+.offer__card--single .btn--secondary:hover { background: rgba(255,255,255,.1); }
+.offer__card--combo .btn--primary { background: var(--color-primary); color: #fff; }
+.offer__combo-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+.offer__combo-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: rgba(255,255,255,.88);
+  font-size: var(--fs-body-sm);
+}
+.offer__combo-points li::before {
+  content: "✓";
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: rgba(125,223,138,.16);
+  color: #7ddf8a;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* =====================================================================
+ * 16 · GUARANTEE (UI §20 / CRO §11) — 5 card
+ * =================================================================== */
+.guarantee__grid {
+  display: grid; grid-template-columns: 1fr; gap: var(--gutter);
+}
+@media (min-width: 600px)  { .guarantee__grid { grid-template-columns: repeat(2,1fr); } }
+@media (min-width: 1024px) { .guarantee__grid { grid-template-columns: repeat(5,1fr); } }
+
+.guarantee__card { text-align: center; align-items: center; display: flex; flex-direction: column; gap: var(--space-2); }
+.guarantee__icon {
+  width: 56px; height: 56px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: rgba(46,125,50,.10); color: var(--color-primary);
+}
+.guarantee__icon svg { width: 28px; height: 28px; }
+.guarantee__title { font-size: var(--fs-h6); font-weight: 700; }
+.guarantee__desc  { font-size: var(--fs-body-sm); color: var(--color-text-secondary); }
+
+/* =====================================================================
+ * 17 · FAQ (UI §21 / DS §21 / CRO §12) — Accordion
+ * =================================================================== */
+.faq__list { max-width: 820px; margin-inline: auto; display: flex; flex-direction: column; gap: var(--space-2); }
+.faq__item { border-radius: var(--radius-faq); border: 1px solid var(--color-border); overflow: hidden; }
+.faq__trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-3); padding: var(--space-4);
+  background: var(--color-white); cursor: pointer;
+  font-size: var(--fs-body); font-weight: 600; text-align: left;
+  transition: background var(--transition) var(--ease);
+}
+.faq__trigger:hover { background: var(--color-bg-alt); }
+.faq__trigger[aria-expanded="true"] { background: var(--color-bg-alt); }
+.faq__icon {
+  flex-shrink: 0; width: 24px; height: 24px; color: var(--color-primary);
+  transition: transform var(--transition) var(--ease);
+}
+.faq__trigger[aria-expanded="true"] .faq__icon { transform: rotate(45deg); } /* + → × */
+.faq__body {
+  max-height: 0; overflow: hidden;
+  transition: max-height var(--transition-slow) var(--ease), padding var(--transition) var(--ease);
+  padding: 0 var(--space-4);
+  font-size: var(--fs-body); color: var(--color-text-secondary);
+}
+.faq__body.is-open {
+  max-height: 400px; /* large enough for any answer */
+  padding-block: 0 var(--space-4);
+}
+
+/* =====================================================================
+ * 18 · SMART ORDER FORM (Component 21 / CRO §6 §7 §8 §9 §10 §15 §16)
+ * Desktop 2-col (form left, product+trust right). Mobile 1-col (img→form).
+ * =================================================================== */
+.orderform { background: var(--color-bg-alt); }
+
+.orderform__grid {
+  display: grid; grid-template-columns: 1fr; gap: var(--space-6);
+}
+@media (min-width: 1024px) {
+  .orderform__grid { grid-template-columns: 1.1fr .9fr; gap: var(--space-8); align-items: start; }
+}
+
+/* right column */
+.orderform__aside { display: flex; flex-direction: column; gap: var(--space-4); }
+.orderform__product-img { border-radius: var(--radius-image); overflow: hidden; }
+.orderform__product-img .media-placeholder { min-height: 260px; }
+.orderform__product-img .asset-media { min-height: 260px; }
+
+/* trust mini-bar beside form (CRO §10) */
+.orderform__trust {
+  display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3);
+  padding: var(--space-3); background: #fff;
+  border-radius: var(--radius-card); border: 1px solid var(--color-border);
+}
+.otrust-item { display: flex; align-items: center; gap: 6px; font-size: var(--fs-caption); font-weight: 600; }
+.otrust-item svg { width: 18px; height: 18px; color: var(--color-primary); flex-shrink: 0; }
+
+/* form card */
+.orderform__form-card {
+  background: var(--color-white); border-radius: var(--radius-card);
+  box-shadow: var(--shadow-md); padding: var(--space-5);
+}
+.form-section-title { font-size: var(--fs-h5); font-weight: 700; margin-bottom: var(--space-4); }
+
+/* field + label */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: var(--fs-body-sm); font-weight: 600; }
+.field label .req { color: var(--color-error); margin-left: 2px; }
+.field input, .field textarea {
+  height: var(--input-height); width: 100%;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border); border-radius: var(--radius-input);
+  font-size: var(--fs-body); color: var(--color-text);
+  transition: border-color var(--transition) var(--ease), box-shadow var(--transition) var(--ease);
+  outline: none;
+}
+.field textarea { height: 96px; padding: var(--space-2) var(--space-3); resize: vertical; }
+.field input:focus, .field textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(46,125,50,.15); /* Motion §20 form focus */
+}
+.field input.is-error, .field textarea.is-error { border-color: var(--color-error); }
+.field__error {
+  font-size: var(--fs-caption); color: var(--color-error);
+  display: none; align-items: center; gap: 4px;
+}
+.field.is-invalid .field__error { display: flex; }
+
+/* quantity selector (CRO §6 / Component 21 — no dropdown) */
+.qty-row { display: flex; flex-direction: column; gap: 6px; }
+.qty-row label { font-size: var(--fs-body-sm); font-weight: 600; }
+.qty-selector {
+  display: inline-flex; align-items: center;
+  border: 1px solid var(--color-border); border-radius: var(--radius-input);
+  overflow: hidden; width: fit-content;
+}
+.qty-selector__btn {
+  width: 48px; height: var(--input-height);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: var(--fs-h5); font-weight: 700;
+  color: var(--color-primary);
+  transition: background var(--transition) var(--ease);
+}
+.qty-selector__btn:hover { background: var(--color-bg-alt); }
+.qty-selector__btn:active { background: rgba(46,125,50,.12); }
+.qty-selector__input {
+  width: 64px; height: var(--input-height);
+  border: none; border-left: 1px solid var(--color-border); border-right: 1px solid var(--color-border);
+  text-align: center; font-size: var(--fs-h6); font-weight: 700;
+  outline: none; -moz-appearance: textfield;
+}
+.qty-selector__input::-webkit-outer-spin-button,
+.qty-selector__input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+/* order summary (CRO §15 §16 §24) */
+.order-summary {
+  background: var(--color-bg-alt); border-radius: var(--radius-card);
+  border: 1px solid var(--color-border); padding: var(--space-4);
+  margin-top: var(--space-4);
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + var(--space-2));
+  z-index: 2;
+}
+@media (min-width: 1024px) {
+  .order-summary {
+    top: calc(var(--header-height) + var(--space-4));
+    z-index: 1;
+  }
+}
+.summary-sale-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--space-3);
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(46,125,50,.10), rgba(200,161,0,.12));
+  border: 1px solid rgba(46,125,50,.16);
+}
+.summary-sale-banner strong {
+  font-size: var(--fs-body);
+  color: var(--color-text);
+}
+.summary-sale-banner span:last-child {
+  font-size: var(--fs-caption);
+  color: var(--color-text-secondary);
+}
+.summary-sale-banner__tag {
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: var(--radius-badge);
+  background: rgba(46,125,50,.14);
+  color: var(--color-primary);
+  font-size: var(--fs-caption);
+  font-weight: 800;
+}
+.summary-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-block: var(--space-2); border-bottom: 1px solid var(--color-divider);
+  font-size: var(--fs-body-sm);
+}
+.summary-row:last-child { border-bottom: none; }
+.summary-row--total {
+  font-size: var(--fs-h5); font-weight: 800;
+  padding-top: var(--space-3); border-top: 2px solid var(--color-border); border-bottom: none;
+  color: var(--color-primary);
+}
+.summary-label { color: var(--color-text-secondary); }
+.summary-value { font-weight: 700; }
+.summary-discount { color: var(--color-primary); }
+.summary-ship-free { color: var(--color-success); font-weight: 600; }
+.summary-combo-badge {
+  font-size: var(--fs-caption); font-weight: 700; color: var(--color-primary);
+  background: rgba(46,125,50,.10); padding: 2px 8px; border-radius: var(--radius-badge);
+}
+.summary-feedback {
+  display: flex; align-items: center; gap: 6px;
+  font-size: var(--fs-caption); font-weight: 600;
+  margin-top: var(--space-2);
+}
+.summary-feedback svg { width: 14px; height: 14px; flex-shrink: 0; }
+.summary-saving { color: var(--color-primary); }
+.summary-shipping { color: var(--color-success); }
+.summary-total-note {
+  margin-top: var(--space-3);
+  margin-bottom: 0;
+  font-size: var(--fs-caption);
+  color: var(--color-primary);
+  font-weight: 700;
+  text-align: center;
+}
+.combo-progress {
+  font-size: var(--fs-caption); font-weight: 600;
+  color: var(--color-primary);
+  margin-top: 6px;
+}
+.combo-encourage {
+  display: flex; align-items: center; gap: 6px;
+  font-size: var(--fs-caption); font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 6px;
+}
+.combo-encourage svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+/* Price animation (CRO §16): fade when value changes */
+.price-fade { transition: opacity 160ms ease; }
+.price-fade.updating { opacity: 0; }
+
+/* submit CTA + microcopy (CRO §9) */
+.form-submit { margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
+.form-microcopy { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.form-microcopy li {
+  display: flex; align-items: flex-start; gap: 6px;
+  font-size: var(--fs-caption); color: var(--color-text-secondary);
+}
+.form-microcopy li svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px; color: var(--color-primary); }
+.cta-trust-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: var(--space-2);
+}
+.cta-trust-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: var(--fs-caption);
+  color: var(--color-text-secondary);
+}
+.cta-trust-list li svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-primary);
+}
+
+/* success / error states */
+.form-success {
+  display: none; flex-direction: column; align-items: center; gap: var(--space-3);
+  text-align: center; padding: var(--space-6);
+}
+.form-success.is-visible { display: flex; }
+.form-success__icon { width: 64px; height: 64px; color: var(--color-success); }
+
+/* =====================================================================
+ * 19 · FOOTER (UI §23) — nền tối, chữ sáng
+ * =================================================================== */
+.footer {
+  background: var(--color-bg-dark); color: rgba(255,255,255,.78);
+  padding-block: var(--space-8) var(--space-5);
+}
+.footer__grid {
+  display: grid; grid-template-columns: 1fr; gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+@media (min-width: 768px)  { .footer__grid { grid-template-columns: 2fr 1fr 1fr; } }
+@media (min-width: 1024px) { .footer__grid { grid-template-columns: 2.5fr 1fr 1fr 1fr; } }
+
+.footer__brand-logo {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-size: var(--fs-h5); font-weight: 800; color: #fff; margin-bottom: var(--space-3);
+}
+.footer__brand-desc { font-size: var(--fs-body-sm); color: rgba(255,255,255,.55); max-width: 36ch; }
+.footer__heading { font-size: var(--fs-body-sm); font-weight: 700; color: #fff; margin-bottom: var(--space-3); }
+.footer__list { display: flex; flex-direction: column; gap: var(--space-2); }
+.footer__list a, .footer__list span {
+  font-size: var(--fs-body-sm); color: rgba(255,255,255,.55);
+  transition: color var(--transition) var(--ease);
+}
+.footer__list a:hover { color: #fff; }
+.footer__list li { display: flex; align-items: flex-start; gap: 8px; }
+.footer__list svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; color: rgba(255,255,255,.4); }
+
+/* footer CTA bar (CRO §2: CTA in footer) */
+.footer__cta-bar {
+  background: rgba(46,125,50,.18); border: 1px solid rgba(46,125,50,.35);
+  border-radius: var(--radius-card); padding: var(--space-4) var(--space-5);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--space-4); margin-bottom: var(--space-6);
+}
+.footer__cta-text { font-size: var(--fs-h6); font-weight: 700; color: #fff; }
+.footer__cta-sub { font-size: var(--fs-body-sm); color: rgba(255,255,255,.65); }
+
+.footer__divider { border-color: rgba(255,255,255,.12); margin-block: 0 var(--space-4); }
+.footer__bottom {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--space-3); font-size: var(--fs-caption); color: rgba(255,255,255,.4);
+}
+.footer__legal { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.footer__legal a { color: rgba(255,255,255,.4); transition: color var(--transition) var(--ease); }
+.footer__legal a:hover { color: rgba(255,255,255,.8); }
+
+/* =====================================================================
+ * FLOATING CTA (UI §24 / CRO §14 §21) — mobile only, post-Hero
+ * =================================================================== */
+.floating-cta {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  z-index: var(--z-floating-cta);
+  display: flex; gap: var(--space-2); padding: var(--space-2) var(--space-3) calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+  background: rgba(255,255,255,.97); backdrop-filter: blur(8px);
+  box-shadow: 0 -2px 16px rgba(0,0,0,.10);
+  transform: translateY(100%);
+  transition: transform 300ms var(--ease);
+}
+.floating-cta.is-visible { transform: translateY(0); }
+@media (min-width: 1024px) { .floating-cta { display: none !important; } } /* desktop: hidden (CRO §14) */
+.floating-cta .btn { flex: 1; min-height: 52px; font-size: var(--fs-body-sm); padding-inline: var(--space-2); }
+
+/* =====================================================================
+ * EXIT INTENT POPUP (UI §25 / CRO §13) — Combo reminder only, no extra discount
+ * =================================================================== */
+.exit-popup {
+  position: fixed; inset: 0; z-index: var(--z-popup);
+  display: flex; align-items: center; justify-content: center; padding: var(--space-4);
+  background: rgba(15,20,30,.72);
+  opacity: 0; pointer-events: none;
+  transition: opacity 280ms var(--ease); /* Motion §22: Fade In, no Bounce */
+}
+.exit-popup.is-open { opacity: 1; pointer-events: auto; }
+.exit-popup__dialog {
+  background: var(--color-white); border-radius: var(--radius-popup);
+  padding: var(--space-6); max-width: 440px; width: 100%;
+  box-shadow: var(--shadow-lg); text-align: center;
+  position: relative;
+}
+.exit-popup__close {
+  position: absolute; top: var(--space-3); right: var(--space-3);
+  width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; color: var(--color-text-secondary);
+  transition: background var(--transition) var(--ease);
+}
+.exit-popup__close:hover { background: var(--color-bg-alt); }
+.exit-popup__title { font-size: var(--fs-h4); font-weight: 800; margin-block: var(--space-3) var(--space-2); }
+.exit-popup__price { font-size: var(--fs-h2); font-weight: 800; color: var(--color-primary); line-height: 1; }
+.exit-popup__ship  { color: var(--color-success); font-weight: 600; margin-block: var(--space-2) var(--space-5); }
+.exit-popup .btn { width: 100%; }
+
+/* =====================================================================
+ * BACK-TO-TOP (Motion §23)
+ * =================================================================== */
+.back-to-top {
+  position: fixed; bottom: var(--space-5); right: var(--space-4);
+  z-index: var(--z-backtotop);
+  width: 48px; height: 48px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--color-primary); color: #fff;
+  box-shadow: var(--shadow-md);
+  opacity: 0; pointer-events: none;
+  transition: opacity 250ms var(--ease), transform 250ms var(--ease);
+}
+.back-to-top.is-visible { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { transform: translateY(-3px); }
+.back-to-top svg { width: 22px; height: 22px; }
+/* on mobile, lift above floating CTA */
+@media (max-width: 1023px) { .back-to-top { bottom: calc(var(--space-5) + 72px); } }

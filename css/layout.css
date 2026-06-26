@@ -1,0 +1,125 @@
+/* =============================================================================
+ * layout.css — Container, grid, section rhythm, base typography
+ * =========================================================================== */
+
+body {
+  font-family: var(--font-base);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* ---- CONTAINER (DS §5: 1320px, căn giữa) --------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--space-3); /* 24px mép an toàn mobile */
+}
+
+@media (min-width: 1024px) {
+  .container { padding-inline: var(--space-5); } /* 40px */
+}
+
+/* ---- SECTION (khoảng cách đồng nhất, white-space first) ------------------ */
+.section {
+  padding-block: var(--section-padding);
+}
+.section--alt { background: var(--color-bg-alt); }
+
+/* Section heading block (eyebrow + title + sub) — căn giữa mặc định */
+.section-head {
+  max-width: 760px;
+  margin-inline: auto;
+  margin-bottom: var(--space-7);
+  text-align: center;
+}
+.section-head--left { margin-inline: 0; text-align: left; }
+
+.eyebrow {
+  display: inline-block;
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+/* ---- TYPOGRAPHY UTILITIES (DS §4) ---------------------------------------- */
+.h1 { font-size: var(--fs-h1); font-weight: var(--fw-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); }
+.h2 { font-size: var(--fs-h2); font-weight: var(--fw-h2); line-height: var(--lh-h2); }
+.h3 { font-size: var(--fs-h3); font-weight: var(--fw-h3); line-height: var(--lh-h3); }
+.h4 { font-size: var(--fs-h4); font-weight: var(--fw-h4); line-height: var(--lh-h4); }
+.h5 { font-size: var(--fs-h5); font-weight: var(--fw-h5); line-height: var(--lh-h5); }
+.h6 { font-size: var(--fs-h6); font-weight: var(--fw-h6); line-height: var(--lh-h6); }
+
+.body-lg { font-size: var(--fs-body-lg); line-height: var(--lh-body-lg); }
+.body-sm { font-size: var(--fs-body-sm); line-height: var(--lh-body-sm); }
+.caption { font-size: var(--fs-caption); line-height: var(--lh-caption); }
+
+.text-secondary { color: var(--color-text-secondary); }
+.text-primary-c { color: var(--color-primary); }
+
+/* DS §24: dòng văn bản desktop không vượt ~80 ký tự */
+.measure { max-width: 68ch; }
+
+/* ---- GRID HELPERS -------------------------------------------------------- */
+.grid { display: grid; gap: var(--gutter); }
+
+/* Auto-responsive card grids (mobile 1 col -> up) */
+.grid-2 { grid-template-columns: 1fr; }
+.grid-3 { grid-template-columns: 1fr; }
+.grid-4 { grid-template-columns: 1fr; }
+
+@media (min-width: 768px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Two-column split (content / media) */
+.split {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .split { grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+}
+
+/* ---- DIVIDER (DS §16) ---------------------------------------------------- */
+.divider {
+  height: 1px;
+  background: var(--color-divider);
+  border: 0;
+  margin-block: var(--space-7);
+}
+
+/* ---- VISUALLY HIDDEN (a11y) ---------------------------------------------- */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* ---- SKIP LINK (a11y) ---------------------------------------------------- */
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: -100px;
+  z-index: var(--z-popup);
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-button);
+  transition: top var(--transition) var(--ease);
+}
+.skip-link:focus { top: var(--space-2); }

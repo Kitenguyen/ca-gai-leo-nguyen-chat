@@ -1,0 +1,160 @@
+/* =============================================================================
+ * variables.css — DESIGN TOKENS
+ * Mọi giá trị lấy nguyên từ Design System V1.0. KHÔNG hard-code màu nơi khác.
+ * =========================================================================== */
+
+:root {
+
+  /* ---- COLOR (DS §3) ------------------------------------------------------ */
+  --color-primary:        #2E7D32;
+  --color-primary-hover:  #256A2A;
+  --color-secondary:      #C8A100;   /* OCOP / badge nhấn */
+  --color-accent:         #F59E0B;   /* chỉ HOT / Sale / Countdown */
+
+  --color-bg:             #FFFFFF;
+  --color-bg-alt:         #F8F8F6;
+  --color-bg-dark:        #1F2937;   /* Footer */
+
+  --color-text:           #222222;
+  --color-text-secondary: #666666;
+
+  --color-border:         #E5E7EB;
+  --color-divider:        #EEEEEE;
+
+  --color-success:        #16A34A;
+  --color-error:          #DC2626;
+
+  --color-white:          #FFFFFF;
+
+  /* ---- TYPOGRAPHY (DS §4) ------------------------------------------------- */
+  --font-base: 'Be Vietnam Pro', sans-serif;
+
+  --fs-h1: 64px;  --fw-h1: 800;  --lh-h1: 1.10;  --ls-h1: -0.02em;
+  --fs-h2: 48px;  --fw-h2: 700;  --lh-h2: 1.20;
+  --fs-h3: 36px;  --fw-h3: 700;  --lh-h3: 1.30;
+  --fs-h4: 28px;  --fw-h4: 700;  --lh-h4: 1.40;
+  --fs-h5: 22px;  --fw-h5: 600;  --lh-h5: 1.50;
+  --fs-h6: 18px;  --fw-h6: 600;  --lh-h6: 1.50;
+
+  --fs-body-lg: 20px; --lh-body-lg: 1.80;
+  --fs-body:    18px; --lh-body:    1.70;
+  --fs-body-sm: 16px; --lh-body-sm: 1.70;
+  --fs-caption: 14px; --lh-caption: 1.60;
+  --fs-button:  18px; --fw-button:  700;
+
+  /* ---- LAYOUT / GRID (DS §5) --------------------------------------------- */
+  --container:        1320px;
+  --gutter:           24px;
+  --section-padding:  120px;   /* top & bottom desktop */
+
+  /* ---- SPACING SYSTEM (DS §6, base 8) ----------------------------------- */
+  --space-1:   8px;
+  --space-2:   16px;
+  --space-3:   24px;
+  --space-4:   32px;
+  --space-5:   40px;
+  --space-6:   48px;
+  --space-7:   64px;
+  --space-8:   80px;
+  --space-9:   96px;
+  --space-10:  120px;
+  --space-11:  160px;
+
+  /* ---- BORDER RADIUS (DS §7) -------------------------------------------- */
+  --radius-button:  16px;
+  --radius-input:   16px;
+  --radius-card:    24px;
+  --radius-gallery: 20px;
+  --radius-image:   24px;
+  --radius-popup:   28px;
+  --radius-badge:   999px;
+  --radius-faq:     20px;
+
+  /* ---- SHADOW (DS §8) --------------------------------------------------- */
+  --shadow-sm:    0 8px 20px rgba(0,0,0,.05);
+  --shadow-md:    0 15px 40px rgba(0,0,0,.08);
+  --shadow-lg:    0 25px 60px rgba(0,0,0,.12);
+  --shadow-hover: 0 35px 70px rgba(0,0,0,.15);
+
+  /* ---- BUTTON (DS §9) --------------------------------------------------- */
+  --btn-height:    60px;
+  --btn-padding-x: 36px;
+
+  /* ---- FORM (DS §13) ---------------------------------------------------- */
+  --input-height: 56px;
+  --input-border: 1px;
+
+  /* ---- MOTION (DS §27 / Motion Spec §3) --------------------------------- */
+  --transition:      220ms;
+  --transition-slow: 300ms;
+  --ease:            cubic-bezier(0.22, 0.61, 0.36, 1); /* tự nhiên, không bật mạnh */
+
+  --reveal-duration: 600ms;   /* scroll reveal 500–700ms */
+  --hero-duration:   700ms;   /* hero 600–800ms */
+
+  /* ---- CHROME ----------------------------------------------------------- */
+  --header-height:       80px;
+  --announcement-height: 46px;  /* 44–48px */
+  --z-announcement: 60;
+  --z-header:       50;
+  --z-floating-cta: 40;
+  --z-backtotop:    30;
+  --z-popup:        100;
+}
+
+/* =============================================================================
+ * RESPONSIVE TOKEN OVERRIDES
+ * Breakpoints (Quyết định #9):
+ *   Mobile 0–767 · Tablet 768–1023 · Laptop 1024–1439 · Desktop 1440–1919 · Large >=1920
+ * Mobile-first: base = mobile, scale up via min-width.
+ * Mobile rule (DS §23): không dùng text < 16px.
+ * =========================================================================== */
+
+/* MOBILE base (0–767) — kéo nhỏ type & section padding */
+:root {
+  --fs-h1: 36px;  --ls-h1: -0.01em;
+  --fs-h2: 30px;
+  --fs-h3: 24px;
+  --fs-h4: 22px;
+  --fs-h5: 20px;
+  --fs-h6: 18px;
+  --fs-body-lg: 18px;
+  --fs-body:    16px;   /* không nhỏ hơn 16px trên mobile */
+  --section-padding: 64px;
+}
+
+/* TABLET (>=768) */
+@media (min-width: 768px) {
+  :root {
+    --fs-h1: 48px;  --ls-h1: -0.015em;
+    --fs-h2: 38px;
+    --fs-h3: 30px;
+    --fs-h4: 26px;
+    --fs-h5: 22px;
+    --fs-body-lg: 20px;
+    --fs-body: 18px;
+    --section-padding: 88px;
+  }
+}
+
+/* LAPTOP (>=1024) */
+@media (min-width: 1024px) {
+  :root {
+    --fs-h1: 56px;  --ls-h1: -0.02em;
+    --fs-h2: 44px;
+    --fs-h3: 34px;
+    --fs-h4: 28px;
+    --section-padding: 104px;
+  }
+}
+
+/* DESKTOP (>=1440) — full Design System scale */
+@media (min-width: 1440px) {
+  :root {
+    --fs-h1: 64px;
+    --fs-h2: 48px;
+    --fs-h3: 36px;
+    --fs-h4: 28px;
+    --section-padding: 120px;
+  }
+}
