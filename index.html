@@ -93,11 +93,7 @@
     <div class="container">
       <div class="header__inner">
         <a class="header__logo" href="#" aria-label="SADU — trang chủ">
-          <!-- TODO-IMG: thay bằng logo SADU (SVG) -->
-          <svg class="header__logo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M11 20s-7-4-7-11a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 7-7 11-7 11Z"/>
-          </svg>
-          <span>SADU</span>
+          <img class="header__logo-image" src="images/sadu-logo.jpg" alt="SADU" loading="eager" style="height:38px;width:auto;display:block;flex:0 0 auto;" />
         </a>
 
         <div class="header__actions">
@@ -227,10 +223,10 @@
 
     <!-- 03 · PAIN POINT (UI §8) — Card; desktop 3 + 2 (Quyết định mới); mobile 1/hàng -->
     <!-- 5 mục lấy NGUYÊN VĂN từ PRD "Tập trung vào". Card title KHÔNG TODO. Mô tả đoạn: TODO-COPY. -->
-    <section class="section" id="pain-point" aria-label="Pain Point">
+    <section class="section" id="pain-point" aria-label="Vấn đề">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Pain Point</span>
+          <span class="eyebrow">Vấn đề khách hàng gặp phải</span>
         </div>
 
         <div class="painpoint__grid">
@@ -292,7 +288,7 @@
     <section class="section section--alt" id="big-idea" aria-labelledby="bigidea-title">
       <div class="container">
         <div class="bigidea">
-          <span class="eyebrow reveal">Big Idea</span>
+          <span class="eyebrow reveal">Điểm khác biệt</span>
           <h2 class="h2 bigidea__statement reveal" id="bigidea-title">
             Từ vùng trồng chuẩn VietGAP đến từng túi trà Cà Gai Leo nguyên chất.
           </h2>
@@ -348,7 +344,7 @@
           </div>
 
           <div class="farmstory__text reveal" data-delay="1">
-            <span class="eyebrow">Farm Story</span>
+            <span class="eyebrow">Hành trình vùng trồng</span>
             <h2 class="h2 farmstory__title" id="farmstory-title">Từ một hạt giống đến một tách trà</h2>
             <p class="body">Nguyên liệu của SADU được phát triển từ vùng trồng định hướng VietGAP, nơi từng luống cây được theo dõi kỹ về độ đồng đều, thời điểm chăm sóc và thu hái.</p>
             <p class="body">Từ khâu chọn nguyên liệu, sơ chế, sấy đến đóng gói, mỗi công đoạn đều hướng tới một mục tiêu rõ ràng: giữ sản phẩm sạch, tiện dùng và minh bạch cho người mua.</p>
@@ -365,10 +361,10 @@
     <!--(UI §11 + Quyết định B: PRD > UI) — hiển thị ĐỦ 7 USP -->
     <!-- Desktop 4 + 3 (hàng 2 căn giữa) · Tablet 2/hàng · Mobile 1/hàng. -->
     <!-- 7 card title lấy NGUYÊN VĂN từ PRD (KHÔNG TODO, không tạo copy mới). Mô tả đoạn: TODO-COPY. -->
-    <section class="section section--alt" id="usp" aria-label="USP">
+    <section class="section section--alt" id="usp" aria-label="Điểm nổi bật">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">USP</span>
+          <span class="eyebrow">Điểm nổi bật</span>
         </div>
 
         <div class="usp__grid">
@@ -545,10 +541,10 @@
 
     <!-- 08 · GALLERY (UI §12 / Visual §18) — grid + hover zoom + lightbox -->
     <!-- 7 ảnh theo ĐÚNG thứ tự kể chuyện Visual §18 (không random). Caption = Visual §18. Ảnh: TODO-IMG. -->
-    <section class="section section--alt" id="gallery" aria-label="Gallery">
+    <section class="section section--alt" id="gallery" aria-label="Hình ảnh">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Gallery</span>
+          <span class="eyebrow">Hình ảnh thực tế</span>
         </div>
 
         <div class="gallery__grid" id="gallery-grid">
@@ -610,10 +606,10 @@
     </div> 
     <!--(UI §13 / Visual §19) — giữa, lớn, thumbnail + nút Play -->
     <!-- Video self-hosted (Tech §9). TODO-IMG poster, TODO-INTEGRATION nguồn video. -->
-    <section class="section" id="video" aria-label="Video">
+    <section class="section" id="video" aria-label="Video giới thiệu">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Video</span>
+          <span class="eyebrow">Video giới thiệu</span>
         </div>
 
         <div class="video__frame reveal" id="video-frame"
@@ -630,10 +626,10 @@
 
     <!-- 10 · CERTIFICATION (UI §14) — Card chiều cao đồng đều -->
     <!-- Title = thuật ngữ chứng nhận nguyên văn PRD (OCOP 4 Sao / Vùng trồng VietGAP). Mô tả: TODO-COPY. -->
-    <section class="section section--alt" id="certification" aria-label="Certification">
+    <section class="section section--alt" id="certification" aria-label="Chứng nhận">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Certification</span>
+          <span class="eyebrow">Chứng nhận & nguồn gốc</span>
         </div>
 
         <div class="cert__grid">
@@ -655,10 +651,10 @@
     <!-- 11 · COMPARISON (UI §15 / DS §22) — desktop bảng, mobile card -->
     <!-- PRD không định nghĩa tiêu chí so sánh -> tiêu chí dùng TODO-COPY (không tự sáng tác). -->
     <!-- Header cột "SADU" (thương hiệu) & "Sản phẩm khác" (nhãn cấu trúc). -->
-    <section class="section" id="comparison" aria-label="Comparison">
+    <section class="section" id="comparison" aria-label="So sánh">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Comparison</span>
+          <span class="eyebrow">So sánh rõ ràng</span>
         </div>
 
         <!-- Desktop table -->
@@ -757,10 +753,10 @@
     </section>
     <!-- 13 · USAGE (UI §17) — 4 bước: số + icon + hình + mô tả; nối với nhau -->
     <!-- PRD không định nghĩa nội dung từng bước -> mô tả TODO-COPY. -->
-    <section class="section" id="usage" aria-label="Usage">
+    <section class="section" id="usage" aria-label="Cách dùng">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Usage</span>
+          <span class="eyebrow">Cách dùng</span>
         </div>
 
         <ol class="usage__track">
@@ -794,10 +790,10 @@
 
     <!-- 14 · REVIEWS (UI §18 / DS §20 / Visual §17) + NUMBER COUNTER (Motion §16) -->
     <!-- Số liệu & nội dung review chưa có trong PRD -> TODO-COPY. Counter chạy 1 lần khi xuất hiện. -->
-    <section class="section section--alt" id="reviews" aria-label="Reviews">
+    <section class="section section--alt" id="reviews" aria-label="Cảm nhận khách hàng">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Reviews</span>
+          <span class="eyebrow">Cảm nhận khách hàng</span>
         </div>
 
         <!-- Number Counter (Motion §16) — số liệu "có thể xác minh" (PRD).
@@ -904,8 +900,8 @@
     <section class="section offer" id="offer" aria-labelledby="offer-title">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Offer</span>
-          <h2 class="h2" id="offer-title" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Offer</h2>
+          <span class="eyebrow">Bảng giá</span>
+          <h2 class="h2" id="offer-title" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Bảng giá</h2>
         </div>
         <div class="offer__grid">
           <!-- Gói lẻ 250g -->
@@ -942,10 +938,10 @@
     </section>
 
     <!-- 16 · GUARANTEE (UI §20 / CRO §11) — 5 card, titles nguyên văn CRO §11 -->
-    <section class="section section--alt" id="guarantee" aria-label="Guarantee">
+    <section class="section section--alt" id="guarantee" aria-label="Cam kết">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Guarantee</span>
+          <span class="eyebrow">Cam kết từ SADU</span>
         </div>
         <div class="guarantee__grid">
           <div class="card guarantee__card reveal" data-delay="1">
@@ -982,7 +978,7 @@
     <section class="section" id="faq" aria-labelledby="faq-title">
       <div class="container">
         <div class="section-head reveal">
-          <span class="eyebrow">FAQ</span>
+          <span class="eyebrow">Câu hỏi thường gặp</span>
           <h2 class="h2" id="faq-title">Câu hỏi thường gặp</h2>
         </div>
         <div class="faq__list" id="faq-list">
@@ -1225,8 +1221,7 @@
         <!-- Brand -->
         <div>
           <a class="footer__brand-logo" href="#" aria-label="SADU — trang chủ">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M11 20s-7-4-7-11a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 7-7 11-7 11Z"/></svg>
-            SADU
+          <img class="footer__brand-image" src="images/sadu-logo.jpg" alt="SADU" loading="lazy" style="height:42px;width:auto;display:block;flex:0 0 auto;" />
           </a>
           <p class="footer__brand-desc">Cà Gai Leo Nguyên Chất từ vùng trồng chuẩn VietGAP. Chứng nhận OCOP 4 Sao.</p>
         </div>
