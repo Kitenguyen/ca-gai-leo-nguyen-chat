@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
@@ -33,6 +33,29 @@
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" />
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" />
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}
+  (window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init','4352503344921663');
+  </script>
+
+  <noscript>
+  <img height="1"
+  width="1"
+  style="display:none"
+  src="https://www.facebook.com/tr?id=4352503344921663&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Meta Pixel Code -->
 
   <!-- Styles (thứ tự: reset -> tokens -> layout -> components -> animation -> sections) -->
   <link rel="stylesheet" href="css/reset.css" />
@@ -84,7 +107,7 @@
             </svg>
             <span data-bind="hotline">1900 0000</span>
           </a>
-          <a class="btn btn--primary header__cta" data-cta="header" href="#order-form">Đặt hàng</a>
+          <a class="btn btn--primary header__cta" data-cta="header" data-order-button href="#order-form">Đặt hàng</a>
         </div>
       </div>
     </div>
@@ -135,7 +158,7 @@
             </div>
 
             <div class="hero__cta hero-anim" data-seq="4">
-              <a class="btn btn--primary" data-cta="hero_primary" href="#order-form">ĐẶT COMBO TIẾT KIỆM</a>
+              <a class="btn btn--primary" data-cta="hero_primary" data-order-button href="#order-form">ĐẶT COMBO TIẾT KIỆM</a>
               <a class="btn btn--secondary" data-cta="hero_secondary" href="#farm-story">Xem hành trình vùng trồng</a>
             </div>
           </div>
@@ -337,7 +360,7 @@
     <!-- CTA bridge after Farm Story (CRO §2 §20) -->
     <div class="cta-bridge reveal">
       <p class="body-lg text-secondary">Từ vùng trồng đến tay bạn — minh bạch từng công đoạn.</p>
-      <a class="btn btn--primary" data-cta="farmstory_bridge" href="#order-form">ĐẶT HÀNG NGAY</a>
+      <a class="btn btn--primary" data-cta="farmstory_bridge" data-order-button href="#order-form">ĐẶT HÀNG NGAY</a>
     </div> 
     <!--(UI §11 + Quyết định B: PRD > UI) — hiển thị ĐỦ 7 USP -->
     <!-- Desktop 4 + 3 (hàng 2 căn giữa) · Tablet 2/hàng · Mobile 1/hàng. -->
@@ -583,7 +606,7 @@
     <!-- CTA bridge after Gallery (CRO §20) -->
     <div class="cta-bridge reveal">
       <p class="body-lg text-secondary">Sản phẩm đã sẵn sàng. Đặt hàng ngay hôm nay.</p>
-      <a class="btn btn--primary" data-cta="gallery_bridge" href="#order-form">ĐẶT HÀNG NGAY</a>
+      <a class="btn btn--primary" data-cta="gallery_bridge" data-order-button href="#order-form">ĐẶT HÀNG NGAY</a>
     </div> 
     <!--(UI §13 / Visual §19) — giữa, lớn, thumbnail + nút Play -->
     <!-- Video self-hosted (Tech §9). TODO-IMG poster, TODO-INTEGRATION nguồn video. -->
@@ -693,43 +716,45 @@
       </div>
     </section>
 
-    <!-- 12 · BENEFITS (UI §16) — card nhỏ, biểu tượng lớn, tiêu đề + 2 dòng -->
-    <!-- Tái tổ chức thông tin CÓ SẴN trong PRD (tiện lợi / chính sách / chứng nhận). -->
-    <!-- KHÔNG TODO, KHÔNG tạo claim mới, KHÔNG claim y tế/công dụng. -->
-    <section class="section section--alt" id="benefits" aria-label="Benefits">
+    <!-- 12 · CÔNG DỤNG (UI §16) — card nhỏ, biểu tượng lớn, tiêu đề + 2 dòng -->
+    <!-- Dành cho người hay nóng trong, quan tâm gan và muốn đổi sang thức uống thảo mộc lành hơn. -->
+    <section class="section section--alt" id="benefits" aria-label="Công dụng">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Benefits</span>
+          <span class="eyebrow">Công dụng</span>
+          <h2 class="h2">Dành cho người hay nóng trong, quan tâm gan và muốn uống nhẹ nhàng mỗi ngày</h2>
+          <p class="body-lg" style="max-width: 56ch;">
+            Cà Gai Leo SADU phù hợp cho những ngày ăn uống thất thường, thức khuya hoặc khi bạn muốn thay thế một thói quen uống nhẹ, ấm và dễ duy trì hơn.
+          </p>
         </div>
 
         <div class="benefits__grid">
           <article class="benefit reveal" data-delay="1">
             <span class="benefit__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3h8l-1 5a4 4 0 0 1-6 0L8 3Z"/><path d="M7 21h10l-1-7H8l-1 7Z"/></svg></span>
-            <h3 class="h6 benefit__title">Túi lọc 5g tiện lợi</h3>
-            <p class="body-sm text-secondary">Quy cách 250g/gói.<br>Định lượng túi lọc 5g.</p>
+            <h3 class="h6 benefit__title">Người hay nóng trong</h3>
+            <p class="body-sm text-secondary">Phù hợp khi bạn muốn một ly trà ấm, dịu.<br>Hỗ trợ đổi sang thức uống lành hơn sau bữa ăn.</p>
           </article>
 
           <article class="benefit reveal" data-delay="2">
             <span class="benefit__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></span>
-            <h3 class="h6 benefit__title">Miễn phí vận chuyển</h3>
-            <p class="body-sm text-secondary">Miễn phí vận chuyển<br>đơn từ 250.000đ.</p>
+            <h3 class="h6 benefit__title">Người quan tâm gan</h3>
+            <p class="body-sm text-secondary">Dành cho người muốn duy trì thói quen uống thảo mộc đều đặn.<br>Nhất là khi bạn thức khuya, ăn nhiều đồ dầu mỡ.</p>
           </article>
 
           <article class="benefit reveal" data-delay="3">
             <span class="benefit__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/><path d="M9 12l2 2 4-4"/></svg></span>
-            <h3 class="h6 benefit__title">Kiểm tra hàng trước khi thanh toán</h3>
-            <p class="body-sm text-secondary">Hàng chính hãng.<br>Hỗ trợ đổi trả theo chính sách của SADU.</p>
+            <h3 class="h6 benefit__title">Dễ uống mỗi ngày</h3>
+            <p class="body-sm text-secondary">Vị thảo mộc dịu nhẹ, dễ duy trì thành thói quen.<br>Phù hợp uống ấm vào sáng sớm hoặc buổi tối.</p>
           </article>
 
           <article class="benefit reveal" data-delay="4">
             <span class="benefit__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="9" r="6"/><path d="M9 13l-1.5 8L12 18l4.5 3L15 13"/></svg></span>
-            <h3 class="h6 benefit__title">Chứng nhận OCOP 4 Sao</h3>
-            <p class="body-sm text-secondary">Nguyên liệu từ vùng trồng VietGAP của SADU.<br>Quy trình sản xuất minh bạch.</p>
+            <h3 class="h6 benefit__title">Thói quen chăm sóc cơ thể</h3>
+            <p class="body-sm text-secondary">Một lựa chọn nhẹ nhàng để thay thế nước ngọt hoặc cà phê quá nhiều.<br>Hợp với lối sống bận rộn hiện nay.</p>
           </article>
         </div>
       </div>
     </section>
-
     <!-- 13 · USAGE (UI §17) — 4 bước: số + icon + hình + mô tả; nối với nhau -->
     <!-- PRD không định nghĩa nội dung từng bước -> mô tả TODO-COPY. -->
     <section class="section" id="usage" aria-label="Usage">
@@ -871,7 +896,7 @@
     <!-- CTA bridge after Reviews (CRO §2 §20) -->
     <div class="cta-bridge section--alt reveal">
       <p class="body-lg text-secondary">Hàng nghìn khách hàng đã tin dùng SADU.</p>
-      <a class="btn btn--primary" data-cta="reviews_bridge" href="#order-form">ĐẶT HÀNG NGAY</a>
+      <a class="btn btn--primary" data-cta="reviews_bridge" data-order-button href="#order-form">ĐẶT HÀNG NGAY</a>
     </div>
 
     <!-- 15 · OFFER (UI §19 / CRO §3 §4 §5) — nền tối, 2 card, combo nổi bật -->
@@ -888,7 +913,7 @@
             <p class="offer__price-unit">Gói lẻ</p>
             <p class="offer__price-main">109.000đ</p>
             <p class="offer__price-unit">250g / gói</p>
-            <a class="btn btn--secondary" data-cta="offer_single" href="#order-form">ĐẶT HÀNG NGAY</a>
+            <a class="btn btn--secondary" data-cta="offer_single" data-order-button href="#order-form">ĐẶT HÀNG NGAY</a>
           </div>
           <!-- Combo 1kg — nổi bật (CRO §4) -->
           <div class="offer__card offer__card--combo reveal" data-delay="2">
@@ -910,7 +935,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
               Miễn phí vận chuyển
             </p>
-            <a class="btn btn--primary" data-cta="offer_combo" href="#order-form">ĐẶT HÀNG NGAY</a>
+            <a class="btn btn--primary" data-cta="offer_combo" data-order-button href="#order-form">ĐẶT HÀNG NGAY</a>
           </div>
         </div>
       </div>
@@ -1131,7 +1156,7 @@
                   <div class="form-submit">
                     <p id="form-server-error" role="alert" hidden
                        style="color:var(--color-error);font-size:var(--fs-caption)"></p>
-                    <button type="submit" class="btn btn--primary btn--block btn--lg" id="btn-submit" data-cta="form_submit">
+                    <button type="submit" class="btn btn--primary btn--block btn--lg" id="btn-submit" data-cta="form_submit" data-order-button>
                       <span id="btn-submit-text">ĐẶT HÀNG NGAY</span>
                     </button>
                     <ul class="form-microcopy">
@@ -1192,7 +1217,7 @@
           <p class="footer__cta-text">Sẵn sàng đặt Combo tiết kiệm?</p>
           <p class="footer__cta-sub">Combo 1kg — 396.000đ · Miễn phí vận chuyển</p>
         </div>
-        <a class="btn btn--primary" data-cta="footer" href="#order-form">ĐẶT HÀNG NGAY</a>
+        <a class="btn btn--primary" data-cta="footer" data-order-button href="#order-form">ĐẶT HÀNG NGAY</a>
       </div>
 
       <!-- Footer grid -->
@@ -1209,9 +1234,9 @@
         <div>
           <p class="footer__heading">Liên hệ</p>
           <ul class="footer__list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l2 5v3a1 1 0 0 1-1 1A17 17 0 0 1 4 5a1 1 0 0 1 1-1Z"/></svg><a data-bind="hotline-href" href="tel:19000000" data-hotline><span data-bind="hotline">1900 0000</span></a></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 5H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1ZM1 6l11 8L23 6"/></svg><a href="mailto:hello@sadu.vn">hello@sadu.vn</a></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>Thông tin địa chỉ showroom đang được cập nhật.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l2 5v3a1 1 0 0 1-1 1A17 17 0 0 1 4 5a1 1 0 0 1 1-1Z"/></svg><a data-bind="hotline-href" href="tel:19008952" data-hotline><span data-bind="hotline">1900 8952</span></a></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 5H3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1ZM1 6l11 8L23 6"/></svg><a href="mailto:nongnghiepcncthanglong@gmail.com">nongnghiepcncthanglong@gmail.com</a></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>Đại Yên, Chương Mỹ, Hà Nội</span></li>
           </ul>
         </div>
         <!-- Chính sách -->
@@ -1227,7 +1252,7 @@
         <div>
           <p class="footer__heading">Kết nối</p>
           <ul class="footer__list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><a href="https://facebook.com/sadu.vn" target="_blank" rel="noopener">Fanpage SADU</a></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><a href="https://www.facebook.com/SADUPHANTRUNGKIEN" target="_blank" rel="noopener">Fanpage SADU</a></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M16.5 7.5v0"/><rect x="2" y="2" width="20" height="20" rx="5"/></svg><a href="https://instagram.com/sadu.vn" target="_blank" rel="noopener">@sadu.vn</a></li>
           </ul>
         </div>
@@ -1250,11 +1275,11 @@
   <!-- FLOATING CTA (Mobile only — CRO §14 / UI §24 / Motion §21)   -->
   <!-- ============================================================= -->
   <div class="floating-cta" id="floating-cta" aria-label="Đặt hàng nhanh" role="complementary">
-    <a class="btn btn--secondary" data-cta="floating_hotline" data-bind="hotline-href" href="tel:19000000" aria-label="Gọi hotline">
+    <a class="btn btn--secondary" data-cta="floating_hotline" data-bind="hotline-href" href="tel:19008952" aria-label="Gọi hotline">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l2 5v3a1 1 0 0 1-1 1A17 17 0 0 1 4 5a1 1 0 0 1 1-1Z"/></svg>
       Gọi ngay
     </a>
-    <a class="btn btn--primary" data-cta="floating_order" href="#order-form">ĐẶT HÀNG</a>
+    <a class="btn btn--primary" data-cta="floating_order" data-order-button href="#order-form">ĐẶT HÀNG</a>
   </div>
 
   <!-- ============================================================= -->
@@ -1269,7 +1294,7 @@
       <h2 class="exit-popup__title" id="popup-title">Combo 1kg</h2>
       <p class="exit-popup__price">396.000đ</p>
       <p class="exit-popup__ship">✓ Miễn phí vận chuyển</p>
-      <a class="btn btn--primary" data-cta="exit_popup" href="#order-form">ĐẶT HÀNG NGAY</a>
+      <a class="btn btn--primary" data-cta="exit_popup" data-order-button href="#order-form">ĐẶT HÀNG NGAY</a>
     </div>
   </div>
 
@@ -1281,6 +1306,7 @@
   <!-- Scripts -->
   <script src="js/config.js"></script>
   <script src="js/utils.js"></script>
+  <script src="js/pixel.js"></script>
   <script src="js/animation.js"></script>
   <script src="js/form.js"></script>
   <script src="js/gallery.js"></script>

@@ -72,6 +72,12 @@
     return result === true;
   }
 
+  function isFieldValid(id, value) {
+    var rule = RULES[id];
+    if (!rule) return true;
+    return rule(value) === true;
+  }
+
   function init() {
     var form = document.getElementById('order-form-el');
     var qtyInp = document.getElementById('qty-input');
@@ -82,6 +88,7 @@
     var btnEl = document.getElementById('btn-submit');
     var btnText = document.getElementById('btn-submit-text');
     var errBox = document.getElementById('form-server-error');
+    var formCard = form.closest('.orderform__form-card');
 
     var elQty = document.getElementById('sum-qty');
     var elSubtotal = document.getElementById('sum-subtotal');
@@ -96,6 +103,17 @@
     var elComboEncourage = document.getElementById('combo-encourage');
 
     var submitting = false;
+
+    function syncSmartCtaState() {
+      if (!formCard) return;
+      var ready = isFieldValid('name', document.getElementById('inp-name') ? document.getElementById('inp-name').value : '')
+        && isFieldValid('phone', document.getElementById('inp-phone') ? document.getElementById('inp-phone').value : '')
+        && isFieldValid('address', document.getElementById('inp-address') ? document.getElementById('inp-address').value : '')
+        && getQty() >= (CFG.QTY_MIN || 1);
+
+      formCard.classList.toggle('is-ready', !!ready);
+      if (btnEl) btnEl.disabled = submitting ? true : false;
+    }
 
     function renderSummary(r) {
       fadeUpdate(elQty, r.qty + ' gói');
@@ -152,6 +170,8 @@
           elComboEncourage.style.display = 'none';
         }
       }
+
+      syncSmartCtaState();
     }
 
     function getQty() {
@@ -178,14 +198,19 @@
     qtyInp.addEventListener('input', function () {
       var n = parseInt(qtyInp.value, 10);
       if (!isNaN(n) && n > 0) renderSummary(calcOrder(n));
+      syncSmartCtaState();
     });
 
     ['name', 'phone', 'address'].forEach(function (id) {
       var el = document.getElementById('inp-' + id);
-      if (el) el.addEventListener('blur', function () { validateField(id, el.value); });
+      if (el) el.addEventListener('blur', function () {
+        validateField(id, el.value);
+        syncSmartCtaState();
+      });
       if (el) el.addEventListener('input', function () {
         var field = document.getElementById('field-' + id);
         if (field && field.classList.contains('is-invalid')) validateField(id, el.value);
+        syncSmartCtaState();
       });
     });
 
@@ -228,10 +253,23 @@
       U.track('submit_form', { grand: r.checkoutTotal, qty: r.qty });
 
       submitting = true;
+      syncSmartCtaState();
       if (btnEl) btnEl.disabled = true;
       if (btnText) btnText.textContent = 'Đang gửi đơn hàng...';
 
       var url = CFG.GAS_WEBAPP_URL;
+      var firePixelSuccess = function () {
+        try {
+          if (global.SADUPixel && typeof global.SADUPixel.purchase === 'function') {
+            global.SADUPixel.purchase(r.checkoutTotal);
+          }
+        } catch (e1) {}
+        try {
+          if (global.SADUPixel && typeof global.SADUPixel.lead === 'function') {
+            global.SADUPixel.lead();
+          }
+        } catch (e2) {}
+      };
       var handleSuccess = function (orderId) {
         U.track('submit_success', { grand: r.checkoutTotal, orderId: orderId || '' });
         showSuccess();
@@ -251,11 +289,13 @@
           if (!result.success) {
             throw new Error(result.message || 'Đặt hàng thất bại.');
           }
+          firePixelSuccess();
           handleSuccess(result.data && result.data.orderId);
         })
         .catch(function (err) {
           console.error(err);
           submitting = false;
+          syncSmartCtaState();
           if (btnEl) btnEl.disabled = false;
           if (btnText) btnText.textContent = 'ĐẶT HÀNG NGAY';
           if (errBox) {
@@ -277,6 +317,8 @@
       if (btnText) btnText.textContent = 'ĐÃ GỬI';
       if (suc) suc.classList.add('is-visible');
     }
+
+    syncSmartCtaState();
   }
 
   global.SADU = global.SADU || {};

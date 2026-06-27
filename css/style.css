@@ -30,7 +30,22 @@
 .announcement__sep { opacity: 0.45; }
 /* Mobile: rút gọn — ẩn dấu phân tách dư, cho cuộn ngang nếu chật */
 @media (max-width: 767px) {
-  .announcement__inner { gap: var(--space-2); }
+  .announcement {
+    height: auto;
+    min-height: var(--announcement-height);
+    padding-block: 6px;
+  }
+  .announcement__inner {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .announcement__inner::-webkit-scrollbar { display: none; }
+  .announcement__item,
+  .announcement__sep { flex: 0 0 auto; }
 }
 
 /* =====================================================================
@@ -128,9 +143,63 @@
   .hero__grid { grid-template-columns: 1.05fr 0.95fr; gap: var(--space-8); }
 }
 
-/* Mobile: ảnh trước, nội dung sau (UI §6) */
-.hero__media { order: -1; }
+/* Mobile: nội dung trước, ảnh sau để phần đầu trang cân hơn */
+.hero__media { order: 1; }
 @media (min-width: 1024px) { .hero__media { order: 0; } }
+
+@media (max-width: 767px) {
+  .header__inner { gap: var(--space-2); }
+  .header__logo { gap: 10px; font-size: var(--fs-body-lg); }
+  .header__logo-mark { width: 30px; height: 30px; }
+  .header__cta { min-height: 44px; padding-inline: var(--space-2); }
+  .hero {
+    min-height: auto;
+    padding-block: var(--space-5) var(--space-6);
+    padding-top: calc(var(--header-height) + var(--space-4));
+  }
+  .hero__grid { gap: var(--space-4); }
+  .hero__media { margin-top: var(--space-1); }
+  .hero__title { max-width: 14ch; }
+  .hero__desc { margin-bottom: var(--space-4); }
+  .hero__price { margin-bottom: var(--space-4); }
+  .hero__price-combo--single { align-self: flex-start; }
+  .orderform__form-card {
+    padding-bottom: calc(var(--space-5) + 116px);
+  }
+  .form-submit {
+    position: static;
+    z-index: auto;
+    max-width: none;
+    margin-inline: 0;
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    scroll-margin-bottom: 132px;
+  }
+  .orderform__form-card.is-ready .form-submit {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: calc(84px + env(safe-area-inset-bottom, 0px) + 12px);
+    z-index: 5;
+    max-width: 358px;
+    margin-inline: auto;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.16);
+    border-radius: 18px;
+    padding: var(--space-3);
+  }
+  .orderform__form-card.is-ready .form-submit .form-microcopy,
+  .orderform__form-card.is-ready .form-submit .cta-trust-list {
+    display: none;
+  }
+  .orderform__form-card.is-ready .form-submit .btn {
+    min-height: 56px;
+  }
+}
 
 .hero__badge { margin-bottom: var(--space-3); }
 .hero__badge.badge--primary { background: rgba(255,255,255,0.16); color: #eafff0; }
