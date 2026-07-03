@@ -1035,11 +1035,11 @@
 
           <div class="faq__item">
             <button class="faq__trigger" aria-expanded="false" aria-controls="faq-a6">
-              Mua 4 gói được tính giá thế nào?
+              Có những combo nào và khi nào được miễn phí vận chuyển?
               <span class="faq__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg></span>
             </button>
             <div class="faq__body" id="faq-a6" role="region">
-              Khi mua từ 4 gói (1kg) trở lên, hệ thống tự động áp dụng giá Combo: 4 gói = 396.000đ (tiết kiệm 40.000đ so với giá lẻ). Từ 5 gói trở lên, giá được tính theo công thức Combo + gói lẻ còn lại.
+              Hiện tại landing page áp dụng 2 lựa chọn cố định: Combo 2 gói giá 198.000đ và Combo 1kg (4 gói) giá 396.000đ. Đơn hàng từ 250.000đ sẽ được miễn phí vận chuyển, nên Combo 1kg sẽ tự động được freeship.
             </div>
           </div>
 
@@ -1090,29 +1090,31 @@
                     <span class="field__error" id="err-address" role="alert" aria-live="polite"></span>
                   </div>
 
-                  <!-- Chọn số lượng (CRO §6: quantity selector, no dropdown) -->
-                  <div class="qty-row">
-                    <label for="qty-input">Số lượng</label>
-                    <div class="qty-selector" role="group" aria-label="Chọn số lượng">
-                      <button type="button" class="qty-selector__btn" id="qty-dec" aria-label="Giảm số lượng">−</button>
-                      <input class="qty-selector__input" id="qty-input" name="qty"
-                             type="number" min="1" max="99" value="4"
-                             aria-label="Số lượng" inputmode="numeric"/>
-                      <button type="button" class="qty-selector__btn" id="qty-inc" aria-label="Tăng số lượng">+</button>
+                  <!-- Chọn combo -->
+                  <div class="combo-row">
+                    <label>Chọn combo</label>
+                    <input id="qty-input" name="qty" type="hidden" value="4" />
+                    <div class="combo-options" role="radiogroup" aria-label="Chọn combo">
+                      <button type="button" class="combo-option" data-combo-option data-qty="2" role="radio" aria-checked="false">
+                        <span class="combo-option__name">Combo 2 gói</span>
+                        <span class="combo-option__price">198.000đ</span>
+                        <span class="combo-option__note">Tiết kiệm 20.000đ</span>
+                      </button>
+                      <button type="button" class="combo-option is-selected" data-combo-option data-qty="4" role="radio" aria-checked="true">
+                        <span class="combo-option__badge">Nên chọn</span>
+                        <span class="combo-option__name">Combo 1kg</span>
+                        <span class="combo-option__price">396.000đ</span>
+                        <span class="combo-option__note">Tiết kiệm 40.000đ · miễn phí vận chuyển</span>
+                      </button>
                     </div>
-                    <p class="combo-progress price-fade" id="combo-progress" aria-live="polite" hidden></p>
-                    <p class="combo-encourage price-fade" id="combo-encourage" aria-live="polite" hidden>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 10-13h-7l1-7Z"/></svg>
-                      Chỉ cần thêm 1 gói để nhận giá Combo 1kg chỉ 396.000đ.
-                    </p>
                   </div>
 
                   <!-- Order Summary (CRO §15 §16 §24) -->
                   <div class="order-summary" aria-label="Tóm tắt đơn hàng" aria-live="polite">
                     <div class="summary-sale-banner">
-                      <span class="summary-sale-banner__tag">Combo 1kg</span>
-                      <strong>Giá đang tốt nhất cho đơn 4 gói</strong>
-                      <span>Tự động áp dụng giá combo và miễn phí vận chuyển.</span>
+                      <span class="summary-sale-banner__tag" id="summary-combo-tag">Combo 1kg</span>
+                      <strong id="summary-combo-title">396.000đ · miễn phí vận chuyển</strong>
+                      <span id="summary-combo-desc">Phù hợp để dùng đều đặn, tiết kiệm 40.000đ so với mua lẻ.</span>
                     </div>
                     <div class="summary-row">
                       <span class="summary-label">Số lượng</span>
@@ -1145,15 +1147,15 @@
                       <span>THANH TOÁN</span>
                       <span class="price-fade" id="sum-grand">396.000đ</span>
                     </div>
-                    <p class="summary-total-note">Bạn đang ở đúng mốc combo tối ưu cho đơn hàng này.</p>
+                    <p class="summary-total-note" id="summary-total-note">Combo 1kg đang là lựa chọn tối ưu vì được miễn phí vận chuyển.</p>
                   </div>
 
                   <!-- Submit + microcopy (CRO §9) -->
                   <div class="form-submit">
                     <p id="form-server-error" role="alert" hidden
                        style="color:var(--color-error);font-size:var(--fs-caption)"></p>
-                    <button type="submit" class="btn btn--primary btn--block btn--lg" id="btn-submit" data-cta="form_submit" data-order-button>
-                      <span id="btn-submit-text">ĐẶT HÀNG NGAY</span>
+                    <button type="submit" class="btn btn--primary btn--hot btn--block btn--lg" id="btn-submit" data-cta="form_submit" data-order-button>
+                      <span id="btn-submit-text">HOÀN TẤT ĐẶT COMBO</span>
                     </button>
                     <ul class="form-microcopy">
                       <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12l4 4 10-10"/></svg>Đội ngũ SADU sẽ gọi xác nhận trước khi gửi hàng.</li>

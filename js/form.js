@@ -1,8 +1,8 @@
 /* =============================================================================
  * form.js - Smart Order Form (Component 21 / CRO §6 §7 §8 §9 §15 §16 §24)
  * Logic:
- *   comboCount = floor(qty / 4); remain = qty % 4
- *   total = comboCount*396000 + remain*109000
+ *   1 gói = 109000
+ *   combo 2 gói hoặc 4 gói = 99000/gói
  *   discount = qty*109000 - total
  *   ship = total >= 250000 ? 0 : 30000
  * =============================================================================*/
@@ -14,12 +14,10 @@
 
   function calcOrder(qty) {
     var unit = CFG.UNIT_PRICE || 109000;
-    var comboQty = CFG.COMBO_QTY || 4;
-    var comboPrice = CFG.COMBO_PRICE || 396000;
-    var combos = Math.floor(qty / comboQty);
-    var remain = qty % comboQty;
+    var dealMinQty = CFG.DEAL_MIN_QTY || 2;
+    var dealUnit = CFG.DEAL_UNIT_PRICE || 99000;
     var listTotal = qty * unit;
-    var comboTotal = combos * comboPrice + remain * unit;
+    var comboTotal = qty >= dealMinQty ? qty * dealUnit : listTotal;
     var discount = listTotal - comboTotal;
     var shipping = comboTotal >= (CFG.FREE_SHIP_THRESHOLD || 250000)
       ? 0
@@ -81,8 +79,6 @@
   function init() {
     var form = document.getElementById('order-form-el');
     var qtyInp = document.getElementById('qty-input');
-    var qtyDec = document.getElementById('qty-dec');
-    var qtyInc = document.getElementById('qty-inc');
     if (!form || !qtyInp) return;
 
     var btnEl = document.getElementById('btn-submit');
@@ -99,10 +95,33 @@
     var elDiscRow = document.getElementById('sum-discount-row');
     var elSaving = document.getElementById('sum-saving');
     var elShipFeedback = document.getElementById('ship-feedback');
-    var elComboProgress = document.getElementById('combo-progress');
-    var elComboEncourage = document.getElementById('combo-encourage');
+    var elSummaryComboTag = document.getElementById('summary-combo-tag');
+    var elSummaryComboTitle = document.getElementById('summary-combo-title');
+    var elSummaryComboDesc = document.getElementById('summary-combo-desc');
+    var elSummaryTotalNote = document.getElementById('summary-total-note');
+    var comboOptions = Array.prototype.slice.call(document.querySelectorAll('[data-combo-option]'));
 
     var submitting = false;
+
+    function renderComboChoice(qty) {
+      comboOptions.forEach(function (btn) {
+        var selected = parseInt(btn.getAttribute('data-qty'), 10) === qty;
+        btn.classList.toggle('is-selected', selected);
+        btn.setAttribute('aria-checked', selected ? 'true' : 'false');
+      });
+
+      if (qty === 4) {
+        fadeUpdate(elSummaryComboTag, 'Combo 1kg');
+        fadeUpdate(elSummaryComboTitle, '396.000đ · miễn phí vận chuyển');
+        fadeUpdate(elSummaryComboDesc, 'Phù hợp để dùng đều đặn, tiết kiệm 40.000đ so với mua lẻ.');
+        fadeUpdate(elSummaryTotalNote, 'Combo 1kg đang là lựa chọn tối ưu vì được miễn phí vận chuyển.');
+      } else {
+        fadeUpdate(elSummaryComboTag, 'Combo 2 gói');
+        fadeUpdate(elSummaryComboTitle, '198.000đ · tiết kiệm 20.000đ');
+        fadeUpdate(elSummaryComboDesc, 'Gọn để dùng thử, vẫn được tính 99.000đ/gói.');
+        fadeUpdate(elSummaryTotalNote, 'Combo 2 gói phù hợp khi bạn muốn dùng thử trước.');
+      }
+    }
 
     function syncSmartCtaState() {
       if (!formCard) return;
@@ -149,27 +168,7 @@
           elSaving.hidden = true;
         }
       }
-
-      if (elComboProgress) {
-        if (r.qty < 4) {
-          elComboProgress.hidden = false;
-          elComboProgress.style.display = '';
-          fadeUpdate(elComboProgress, 'Còn ' + (4 - r.qty) + ' gói nữa để nhận giá Combo.');
-        } else {
-          elComboProgress.hidden = true;
-          elComboProgress.style.display = 'none';
-        }
-      }
-
-      if (elComboEncourage) {
-        if (r.qty === 3) {
-          elComboEncourage.hidden = false;
-          elComboEncourage.style.display = 'flex';
-        } else {
-          elComboEncourage.hidden = true;
-          elComboEncourage.style.display = 'none';
-        }
-      }
+      renderComboChoice(r.qty);
 
       syncSmartCtaState();
     }
@@ -182,17 +181,17 @@
     }
 
     function setQty(n) {
+      n = n === 4 ? 4 : 2;
       qtyInp.value = n;
       renderSummary(calcOrder(n));
     }
 
     setQty(CFG.QTY_DEFAULT || 4);
 
-    if (qtyDec) qtyDec.addEventListener('click', function () {
-      setQty(Math.max(CFG.QTY_MIN || 1, getQty() - 1));
-    });
-    if (qtyInc) qtyInc.addEventListener('click', function () {
-      setQty(Math.min(CFG.QTY_MAX || 99, getQty() + 1));
+    comboOptions.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setQty(parseInt(btn.getAttribute('data-qty'), 10) || 4);
+      });
     });
     qtyInp.addEventListener('change', function () { setQty(getQty()); });
     qtyInp.addEventListener('input', function () {
@@ -297,7 +296,7 @@
           submitting = false;
           syncSmartCtaState();
           if (btnEl) btnEl.disabled = false;
-          if (btnText) btnText.textContent = 'ĐẶT HÀNG NGAY';
+          if (btnText) btnText.textContent = 'HOÀN TẤT ĐẶT COMBO';
           if (errBox) {
             errBox.hidden = false;
             errBox.textContent = 'Chưa gửi được đơn hàng. Vui lòng gọi hotline hoặc thử lại sau ít phút.';
