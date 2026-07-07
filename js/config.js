@@ -34,7 +34,7 @@ window.SADU_CONFIG = {
   EMAIL: 'nongnghiepcncthanglong@gmail.com',
 
   /* --- INTEGRATIONS (để trống, không hard-code khóa bí mật) ----------------- */
-  GAS_WEBAPP_URL: 'https://script.google.com/macros/s/AKfycbz0qnIJ7NaiDIW-zrBTvUfuxpM52vjDrxiwlnB7l50k98vGFxDKIUxkZrrBcJz8kQQS/exe',        // TODO-INTEGRATION: URL Google Apps Script Web App
+  GAS_WEBAPP_URL: 'https://script.google.com/macros/s/AKfycbz0qnIJ7NaiDIW-zrBTvUfuxpM52vjDrxiwlnB7l50k98vGFxDKIUxkZrrBcJz8kQQS/exec',       // TODO-INTEGRATION: URL Google Apps Script Web App
   // Telegram: token KHÔNG đặt phía client (Tech Spec §25). Gửi qua GAS server-side.
   TELEGRAM_ENABLED: false,   // TODO-INTEGRATION: bật khi GAS đã cấu hình Telegram
 
