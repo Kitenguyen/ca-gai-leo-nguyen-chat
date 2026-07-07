@@ -82,13 +82,93 @@
   function initVideo() {
     if (!U) return;
 
+    function buildYoutubeSrc(frame) {
+      var videoId = frame.getAttribute('data-youtube-id');
+      if (!videoId) return '';
+
+      var start = parseInt(frame.getAttribute('data-youtube-start') || '0', 10);
+      var params = [
+        'autoplay=1',
+        'rel=0',
+        'modestbranding=1',
+        'playsinline=1'
+      ];
+
+      if (!isNaN(start) && start > 0) params.push('start=' + start);
+      if (global.location && /^https?:$/i.test(global.location.protocol) && global.location.origin) {
+        params.push('origin=' + encodeURIComponent(global.location.origin));
+      }
+
+      return 'https://www.youtube.com/embed/' + encodeURIComponent(videoId) + '?' + params.join('&');
+    }
+
+    function renderFileProtocolNotice(frame) {
+      if (frame.querySelector('.video__notice')) return;
+
+      var watchUrl = frame.getAttribute('data-youtube-url') || '';
+      frame.innerHTML = '';
+
+      var box = document.createElement('div');
+      box.className = 'video__notice';
+
+      var title = document.createElement('strong');
+      title.className = 'video__notice-title';
+      title.textContent = 'YouTube khong phat truc tiep khi mo file HTML bang file://';
+      box.appendChild(title);
+
+      var body = document.createElement('p');
+      body.className = 'video__notice-body';
+      body.textContent = 'Hay mo landing page bang localhost hoac domain that de xem truc tiep trong trang.';
+      box.appendChild(body);
+
+      var actions = document.createElement('div');
+      actions.className = 'video__notice-actions';
+
+      if (watchUrl) {
+        var link = document.createElement('a');
+        link.className = 'btn btn--secondary';
+        link.href = watchUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'Mo tren YouTube';
+        actions.appendChild(link);
+      }
+
+      box.appendChild(actions);
+      frame.appendChild(box);
+    }
+
     U.qsa('.video__frame').forEach(function (frame) {
       var btn = U.qs('.video__play', frame);
       if (!btn) return;
 
       btn.addEventListener('click', function () {
         var src = frame.getAttribute('data-src');
+        var youtubeId = frame.getAttribute('data-youtube-id');
         U.track('view_video', { id: frame.id || '' });
+        if (youtubeId) {
+          if (global.location && global.location.protocol === 'file:') {
+            renderFileProtocolNotice(frame);
+            return;
+          }
+
+          var iframe = U.qs('.video__el', frame);
+          if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.className = 'video__el';
+            iframe.title = frame.getAttribute('aria-label') || 'YouTube video';
+            iframe.loading = 'lazy';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            iframe.allowFullscreen = true;
+            iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+            frame.appendChild(iframe);
+          }
+
+          iframe.src = buildYoutubeSrc(frame);
+          frame.classList.add('is-playing');
+          return;
+        }
+
         if (!src) return;
 
         var v = document.createElement('video');

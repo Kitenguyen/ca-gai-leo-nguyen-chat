@@ -115,11 +115,16 @@
         fadeUpdate(elSummaryComboTitle, '396.000đ · miễn phí vận chuyển');
         fadeUpdate(elSummaryComboDesc, 'Phù hợp để dùng đều đặn, tiết kiệm 40.000đ so với mua lẻ.');
         fadeUpdate(elSummaryTotalNote, 'Combo 1kg đang là lựa chọn tối ưu vì được miễn phí vận chuyển.');
-      } else {
+      } else if (qty === 2) {
         fadeUpdate(elSummaryComboTag, 'Combo 2 gói');
         fadeUpdate(elSummaryComboTitle, '198.000đ · tiết kiệm 20.000đ');
         fadeUpdate(elSummaryComboDesc, 'Gọn để dùng thử, vẫn được tính 99.000đ/gói.');
         fadeUpdate(elSummaryTotalNote, 'Combo 2 gói phù hợp khi bạn muốn dùng thử trước.');
+      } else {
+        fadeUpdate(elSummaryComboTag, 'Gói lẻ');
+        fadeUpdate(elSummaryComboTitle, '109.000đ · chưa gồm phí vận chuyển');
+        fadeUpdate(elSummaryComboDesc, 'Phù hợp khi bạn muốn mua lẻ 1 gói để trải nghiệm sản phẩm.');
+        fadeUpdate(elSummaryTotalNote, 'Đơn dưới 250.000đ sẽ tính thêm phí vận chuyển.');
       }
     }
 
@@ -181,7 +186,7 @@
     }
 
     function setQty(n) {
-      n = n === 4 ? 4 : 2;
+      if (n !== 1 && n !== 2 && n !== 4) n = 4;
       qtyInp.value = n;
       renderSummary(calcOrder(n));
     }
@@ -191,6 +196,11 @@
     comboOptions.forEach(function (btn) {
       btn.addEventListener('click', function () {
         setQty(parseInt(btn.getAttribute('data-qty'), 10) || 4);
+      });
+    });
+    Array.prototype.slice.call(document.querySelectorAll('[data-select-qty]')).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setQty(parseInt(btn.getAttribute('data-select-qty'), 10) || 4);
       });
     });
     qtyInp.addEventListener('change', function () { setQty(getQty()); });

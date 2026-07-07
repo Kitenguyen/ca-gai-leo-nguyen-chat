@@ -443,10 +443,10 @@
 
     <!-- 07 · PRODUCTION PROCESS (= Timeline, UI §10) — ngang desktop / dọc mobile -->
     <!-- 7 bước lấy NGUYÊN VĂN từ PRD Story (step title KHÔNG TODO). Mô tả mỗi bước: TODO-COPY. -->
-    <section class="section" id="production-process" aria-label="Production Process">
+    <section class="section" id="production-process" aria-label="Quy trình sản xuất">
       <div class="container">
         <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Production Process</span>
+          <span class="eyebrow">Quy trình sản xuất</span>
         </div>
 
         <div class="timeline">
@@ -604,25 +604,25 @@
       <p class="body-lg text-secondary">Sản phẩm đã sẵn sàng. Đặt hàng ngay hôm nay.</p>
       <a class="btn btn--primary" data-cta="gallery_bridge" data-order-button href="#order-form">ĐẶT HÀNG NGAY</a>
     </div> 
-    <!--(UI §13 / Visual §19) — giữa, lớn, thumbnail + nút Play -->
-    <!-- Video self-hosted (Tech §9). TODO-IMG poster, TODO-INTEGRATION nguồn video. -->
-    <section class="section" id="video" aria-label="Video giới thiệu">
-      <div class="container">
-        <div class="section-head section-head--label reveal">
-          <span class="eyebrow">Video giới thiệu</span>
-        </div>
-
-        <div class="video__frame reveal" id="video-frame"
-             data-src=""> <!-- TODO: đặt đường dẫn video self-hosted (vd: videos/sadu.mp4) -->
-          <div class="video__poster">
-            <img class="asset-media" src="images/product-detail-sadu-tea.webp" alt="Ảnh đại diện video sản phẩm trà Cà Gai Leo SADU" loading="lazy" />
+      <!--(UI §13 / Visual §19) — giữa, lớn -->
+      <section class="section" id="video" aria-label="Video giới thiệu">
+        <div class="container">
+          <div class="section-head section-head--label reveal">
+            <span class="eyebrow">Video giới thiệu</span>
           </div>
-          <button type="button" class="video__play" id="video-play" aria-label="Phát video">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          </button>
+
+          <div class="video__frame reveal" id="video-frame" aria-label="Video giới thiệu sản phẩm SADU"
+               data-youtube-id="osjNpx754vg" data-youtube-start="1"
+               data-youtube-url="https://www.youtube.com/watch?v=osjNpx754vg&t=1s">
+            <div class="video__poster">
+              <img class="asset-media" src="https://i.ytimg.com/vi/osjNpx754vg/hqdefault.jpg" alt="Ảnh đại diện video giới thiệu sản phẩm SADU" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" />
+            </div>
+            <button type="button" class="video__play" id="video-play" aria-label="Phát video giới thiệu">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
     <!-- 10 · CERTIFICATION (UI §14) — Card chiều cao đồng đều -->
     <!-- Title = thuật ngữ chứng nhận nguyên văn PRD (OCOP 4 Sao / Vùng trồng VietGAP). Mô tả: TODO-COPY. -->
@@ -648,69 +648,58 @@
       </div>
     </section>
 
-    <!-- 11 · COMPARISON (UI §15 / DS §22) — desktop bảng, mobile card -->
-    <!-- PRD không định nghĩa tiêu chí so sánh -> tiêu chí dùng TODO-COPY (không tự sáng tác). -->
-    <!-- Header cột "SADU" (thương hiệu) & "Sản phẩm khác" (nhãn cấu trúc). -->
-    <section class="section" id="comparison" aria-label="So sánh">
-      <div class="container">
-        <div class="section-head section-head--label reveal">
-          <span class="eyebrow">So sánh rõ ràng</span>
-        </div>
+      <!-- 11 · COMPARISON (UI §15 / DS §22) — desktop bảng, mobile card -->
+      <!-- Header cột "SADU" (thương hiệu) & "Sản phẩm khác" (nhãn cấu trúc). -->
+      <section class="section" id="comparison" aria-label="So sánh">
+        <div class="container">
+          <div class="section-head section-head--label reveal">
+            <span class="eyebrow">So sánh rõ ràng</span>
+          </div>
 
-        <!-- Desktop table -->
-        <table class="comparison__table reveal">
-          <thead>
-            <tr><th scope="col">Tiêu chí</th><th scope="col">SADU</th><th scope="col">Sản phẩm khác</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="comparison__criteria"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21V11"/><path d="M12 11C12 7 9 5 5 5c0 4 3 6 7 6Z"/></svg></span><span>Vùng trồng định hướng kiểm soát nguồn nguyên liệu</span></td>
-              <td><span class="cmp-yes" aria-label="Có"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg></span></td>
-              <td><span class="cmp-no" aria-label="Không"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></span></td>
-            </tr>
-            <tr>
-              <td class="comparison__criteria"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span><span>Quy trình sản xuất thể hiện rõ trên landing page và bao bì</span></td>
-              <td><span class="cmp-yes" aria-label="Có"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg></span></td>
-              <td><span class="cmp-no" aria-label="Không"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></span></td>
-            </tr>
-            <tr>
-              <td class="comparison__criteria"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/><path d="M9 12l2 2 4-4"/></svg></span><span>Chứng nhận và thông tin thương hiệu được trình bày minh bạch</span></td>
-              <td><span class="cmp-yes" aria-label="Có"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg></span></td>
-              <td><span class="cmp-no" aria-label="Không"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></span></td>
-            </tr>
-            <tr>
-              <td class="comparison__criteria"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3h8l-1 5a4 4 0 0 1-6 0L8 3Z"/><path d="M7 21h10l-1-7H8l-1 7Z"/></svg></span><span>Túi lọc định lượng sẵn, dễ dùng và dễ mang theo</span></td>
-              <td><span class="cmp-yes" aria-label="Có"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg></span></td>
-              <td><span class="cmp-no" aria-label="Không"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></span></td>
-            </tr>
-          </tbody>
-        </table>
+          <!-- Desktop table -->
+          <table class="comparison__table reveal">
+            <thead>
+              <tr><th scope="col">Tiêu chí</th><th scope="col">SADU</th><th scope="col">Sản phẩm khác</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="comparison__criteria"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21V11"/><path d="M12 11C12 7 9 5 5 5c0 4 3 6 7 6Z"/></svg></span><span>Nguồn nguyên liệu rõ ràng</span></td>
+                <td><span class="cmp-yes" aria-label="Có"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg></span></td>
+                <td><span class="cmp-no" aria-label="Không"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></span></td>
+              </tr>
+              <tr>
+                <td class="comparison__criteria"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span><span>Quy trình minh bạch</span></td>
+                <td><span class="cmp-yes" aria-label="Có"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg></span></td>
+                <td><span class="cmp-no" aria-label="Không"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></span></td>
+              </tr>
+              <tr>
+                <td class="comparison__criteria"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/><path d="M9 12l2 2 4-4"/></svg></span><span>Thông tin thương hiệu minh bạch</span></td>
+                <td><span class="cmp-yes" aria-label="Có"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg></span></td>
+                <td><span class="cmp-no" aria-label="Không"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></span></td>
+              </tr>
+            </tbody>
+          </table>
 
-        <!-- Mobile cards -->
-        <div class="comparison__cards">
-          <article class="card comparison__card reveal" data-delay="1">
-            <div class="cmp-card__crit"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21V11"/><path d="M12 11C12 7 9 5 5 5c0 4 3 6 7 6Z"/></svg></span><span>Vùng trồng định hướng kiểm soát nguồn nguyên liệu</span></div>
-            <div class="cmp-card__row"><span>SADU</span><span class="cmp-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M5 12l4 4 10-10"/></svg></span></div>
-            <div class="cmp-card__row"><span>Sản phẩm khác</span><span class="cmp-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div>
-          </article>
-          <article class="card comparison__card reveal" data-delay="2">
-            <div class="cmp-card__crit"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3"/></svg></span><span>Quy trình sản xuất thể hiện rõ trên landing page và bao bì</span></div>
-            <div class="cmp-card__row"><span>SADU</span><span class="cmp-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M5 12l4 4 10-10"/></svg></span></div>
-            <div class="cmp-card__row"><span>Sản phẩm khác</span><span class="cmp-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div>
-          </article>
-          <article class="card comparison__card reveal" data-delay="3">
-            <div class="cmp-card__crit"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/></svg></span><span>Chứng nhận và thông tin thương hiệu được trình bày minh bạch</span></div>
-            <div class="cmp-card__row"><span>SADU</span><span class="cmp-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M5 12l4 4 10-10"/></svg></span></div>
-            <div class="cmp-card__row"><span>Sản phẩm khác</span><span class="cmp-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div>
-          </article>
-          <article class="card comparison__card reveal" data-delay="4">
-            <div class="cmp-card__crit"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3h8l-1 5a4 4 0 0 1-6 0L8 3Z"/><path d="M7 21h10l-1-7H8l-1 7Z"/></svg></span><span>Túi lọc định lượng sẵn, dễ dùng và dễ mang theo</span></div>
-            <div class="cmp-card__row"><span>SADU</span><span class="cmp-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M5 12l4 4 10-10"/></svg></span></div>
-            <div class="cmp-card__row"><span>Sản phẩm khác</span><span class="cmp-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div>
-          </article>
+          <!-- Mobile cards -->
+          <div class="comparison__cards">
+            <article class="card comparison__card reveal" data-delay="1">
+              <div class="cmp-card__crit"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21V11"/><path d="M12 11C12 7 9 5 5 5c0 4 3 6 7 6Z"/></svg></span><span>Nguồn nguyên liệu rõ ràng</span></div>
+              <div class="cmp-card__row"><span>SADU</span><span class="cmp-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M5 12l4 4 10-10"/></svg></span></div>
+              <div class="cmp-card__row"><span>Sản phẩm khác</span><span class="cmp-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div>
+            </article>
+            <article class="card comparison__card reveal" data-delay="2">
+              <div class="cmp-card__crit"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3"/></svg></span><span>Quy trình minh bạch</span></div>
+              <div class="cmp-card__row"><span>SADU</span><span class="cmp-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M5 12l4 4 10-10"/></svg></span></div>
+              <div class="cmp-card__row"><span>Sản phẩm khác</span><span class="cmp-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div>
+            </article>
+            <article class="card comparison__card reveal" data-delay="3">
+              <div class="cmp-card__crit"><span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/></svg></span><span>Thông tin thương hiệu minh bạch</span></div>
+              <div class="cmp-card__row"><span>SADU</span><span class="cmp-yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M5 12l4 4 10-10"/></svg></span></div>
+              <div class="cmp-card__row"><span>Sản phẩm khác</span><span class="cmp-no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M6 6l12 12M18 6 6 18"/></svg></span></div>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
     <!-- 12 · CÔNG DỤNG (UI §16) — card nhỏ, biểu tượng lớn, tiêu đề + 2 dòng -->
     <!-- Dành cho người hay nóng trong, quan tâm gan và muốn đổi sang thức uống thảo mộc lành hơn. -->
@@ -823,9 +812,13 @@
 
         <!-- Video review hiển thị TRƯỚC (Visual §17 / UI §18) -->
         <div class="reviews__video reveal">
-          <div class="video__frame" id="review-video-frame" data-src="">
-            <div class="video__poster"><img class="asset-media" src="images/customer-lifestyle-sadu.webp" alt="Ảnh đại diện khách hàng dùng trà Cà Gai Leo SADU" loading="lazy" /></div>
-            <button type="button" class="video__play" aria-label="Phát video review">
+          <div class="video__frame" id="review-video-frame" aria-label="Video feedback khách hàng"
+               data-youtube-id="wAxzVKehReo"
+               data-youtube-url="https://www.youtube.com/watch?v=wAxzVKehReo">
+            <div class="video__poster">
+              <img class="asset-media" src="https://i.ytimg.com/vi/wAxzVKehReo/hqdefault.jpg" alt="Ảnh đại diện video feedback khách hàng" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" />
+            </div>
+            <button type="button" class="video__play" aria-label="Phát video feedback khách hàng">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
             </button>
           </div>
@@ -909,10 +902,32 @@
             <p class="offer__price-unit">Gói lẻ</p>
             <p class="offer__price-main">109.000đ</p>
             <p class="offer__price-unit">250g / gói</p>
-            <a class="btn btn--secondary" data-cta="offer_single" data-order-button href="#order-form">ĐẶT HÀNG NGAY</a>
+            <ul class="offer__quick-points" aria-label="Thông tin gói lẻ">
+              <li>Phù hợp khi muốn trải nghiệm trước</li>
+              <li>Mua lẻ từng gói theo nhu cầu</li>
+              <li>Đơn dưới 250.000đ tính phí vận chuyển</li>
+            </ul>
+            <a class="btn btn--secondary" data-cta="offer_single" data-order-button data-select-qty="1" href="#order-form">ĐẶT HÀNG NGAY</a>
+          </div>
+          <!-- Combo 2 gói -->
+          <div class="offer__card offer__card--deal reveal" data-delay="2">
+            <span class="offer__savings-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              Tiết kiệm 20.000đ
+            </span>
+            <p class="offer__price-unit">Combo 2 gói</p>
+            <p class="offer__price-old">218.000đ</p>
+            <p class="offer__price-main">198.000đ</p>
+            <p class="offer__price-unit">500g (2 gói 250g)</p>
+            <ul class="offer__combo-points" aria-label="Ưu điểm combo 2 gói">
+              <li>Giá ưu đãi 99.000đ cho mỗi gói</li>
+              <li>Phù hợp khi muốn dùng thử trước</li>
+              <li>Gọn nhẹ, dễ bắt đầu liệu trình</li>
+            </ul>
+            <a class="btn btn--secondary" data-cta="offer_combo_2" data-order-button data-select-qty="2" href="#order-form">CHỌN COMBO 2 GÓI</a>
           </div>
           <!-- Combo 1kg — nổi bật (CRO §4) -->
-          <div class="offer__card offer__card--combo reveal" data-delay="2">
+          <div class="offer__card offer__card--combo reveal" data-delay="3">
             <span class="offer__ribbon">Được nhiều khách hàng lựa chọn</span>
             <span class="offer__savings-badge">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
@@ -931,7 +946,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
               Miễn phí vận chuyển
             </p>
-            <a class="btn btn--primary" data-cta="offer_combo" data-order-button href="#order-form">ĐẶT HÀNG NGAY</a>
+            <a class="btn btn--primary" data-cta="offer_combo" data-order-button data-select-qty="4" href="#order-form">ĐẶT HÀNG NGAY</a>
           </div>
         </div>
       </div>
